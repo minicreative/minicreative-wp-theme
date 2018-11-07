@@ -14,7 +14,7 @@
 	<meta name="author" content="" />
 
 	<!-- Base CSS -->
-	<link href="<?php echo get_bloginfo('template_directory'); ?>/style.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo get_bloginfo('template_directory'); ?>/sass_compiler/server.php/main.scss" rel="stylesheet" type="text/css" />
 
 	<!-- Base JS -->
 	<script src="" type="text-javascript"></script>
