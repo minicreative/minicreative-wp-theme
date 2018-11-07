@@ -1,0 +1,2 @@
+<script src="<?= $config->urls->templates?>plugins/lightbox/lightbox.min.js"></script>
+<link href="<?= $config->urls->templates?>plugins/lightbox/lightbox.css" rel="stylesheet" />
