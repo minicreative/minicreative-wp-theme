@@ -9,7 +9,7 @@
 			</div>
 			
 			<!-- Footer Widgets -->
-			<?php dynamic_sidebar('footer'); ?>
+			<?php dynamic_sidebar('footer-sidebar'); ?>
 
 		</div>
 	</footer>

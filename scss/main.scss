@@ -83,6 +83,7 @@ h3 {font-size:14px;}
 // Site Styles ========================================================
 header {
 	padding:20px 0px;
+	border-bottom:1px solid #999;
 	.logo {
 		float:left; height:80px;
 		img {height:100%;}
@@ -104,4 +105,13 @@ header {
 			> li {display:inline-block;}
 		}
 	}
+}
+
+footer {
+	padding:20px;
+	border-top:1px solid #999;
+}
+
+.content {
+	padding:30px;
 }

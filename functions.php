@@ -52,11 +52,19 @@ function minicreative_register_sidebars() {
 
 	// Footer widget area
 	register_sidebar( array(
-		'name'          => 'Footer',
-		'id'            => 'fooder',
+		'name'          => 'Primary Sidebar',
+		'id'            => 'primary-sidebar',
 		'before_widget' => '<div>',
 		'after_widget'  => '</div>',
-	) );
+	));
+
+	// Footer widget area
+	register_sidebar( array(
+		'name'          => 'Footer',
+		'id'            => 'footer-sidebar',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+	));
 }
 add_action('widgets_init', 'minicreative_register_sidebars');
 
