@@ -2,7 +2,15 @@
 	<!-- Site Footer -->
 	<footer>
 		<div class="container">
-			Footer
+
+			<!-- Contact Information -->
+			<div class="column contact">
+				<?php print_contact_info() ?>
+			</div>
+			
+			<!-- Footer Widgets -->
+			<?php dynamic_sidebar('footer'); ?>
+
 		</div>
 	</footer>
 

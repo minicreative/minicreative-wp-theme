@@ -6,20 +6,11 @@ Written for MiniCreative sites
 */
 
 // Resets & Basic Classes
+div {box-sizing:border-box;}
 .end {margin-right:0px;}
 img {border:0; max-width:100%;}
-a {text-decoration:none;}
+a {color:inherit;}
 .clear {clear:both;}
-
-// ProcessWire Styling
-#processwire {
-	position:fixed; right:0px; bottom:20px; z-index:500;
-	font-family:Arial; text-align:right; font-size:16px; line-height:26px;
-	a {
-		color:white; text-decoration:none; padding:4px 6px; background:#333; border-right:3px solid #111;
-		&:hover {background:black;}
-	}
-}
 
 // SASS Plugins
 @mixin box-shadow($shadow) {-moz-box-shadow: $shadow; -webkit-box-shadow: $shadow; box-shadow: $shadow;}
@@ -29,7 +20,7 @@ a {text-decoration:none;}
 $pad: 30px;
 $pad_: 20px;
 
-$max_container: 1300px;
+$max_container: 1040px;
 $large_container: 960px;
 $medium_container: 720px;
 $small_container: 100%;
@@ -43,10 +34,10 @@ $small_container: 100%;
 // Mobile Responsiveness
 @mixin breakpoint($point) {
 	@if $point == l {
-		@media screen and (max-width: 1360px) {@content;}
+		@media screen and (max-width: 1110px) {@content;}
 	}
 	@else if $point == m {
-		@media screen and (max-width: 1000px)  {@content;}
+		@media screen and (max-width: 1020px)  {@content;}
 	}
 	@else if $point == s {
 		@media screen and (max-width: 760px)  {@content;}
@@ -88,31 +79,29 @@ h3 {font-size:14px;}
 }
 
 // Module Styles ======================================================
-.social {
-	@include row;
-	a {display:inline-block; margin-right:10px;}
-}
-.contact {
-	.title {@include row;}
-}
 
 // Site Styles ========================================================
 header {
-	.title {
-		@include row;
-	}
+	padding:20px 0px;
 	.logo {
-		@include row; width:120px;
+		float:left; height:80px;
+		img {height:100%;}
 	}
 	.navigation {
-		@include row;
-		.nav {
-			display:inline-block; vertical-align:top;
-			.subnav {
-				a {
-					display:block;
-				}
+		display:block;
+		text-align:right;
+		ul {display:block; margin:0px; padding:0px;}
+		> ul > li  {
+			display:inline-block; position:relative; margin-left:20px;
+			&:hover {
+				.sub-menu {display:block;}
 			}
+		}
+		ul.sub-menu {
+			display:none; // Hide until hover
+			position:absolute; top:100%; left:0px; width:100%; 
+			text-align:left;
+			> li {display:inline-block;}
 		}
 	}
 }

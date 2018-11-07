@@ -5,6 +5,39 @@ MiniCreative WordPress Theme
 Theme functions
 */
 
+// Theme Display Functions ===================================================
+
+function print_contact_info () {
+	if (get_theme_mod('minicreative_contact_email')) {
+		echo "<div class='contact_item'>";
+		echo "<a href='mailto:".get_theme_mod('minicreative_contact_email')."'>";
+			echo get_theme_mod('minicreative_contact_email');
+		echo "</a>";
+		echo "</div>";
+	}
+	if (get_theme_mod('minicreative_contact_address1')) {
+		echo "<div class='contact_item'>";
+		echo get_theme_mod('minicreative_contact_address1');
+		echo "<br />";
+		echo get_theme_mod('minicreative_contact_address2');
+		echo "</div>";
+	}
+	if (get_theme_mod('minicreative_contact_phone')) {
+		echo "<div class='contact_item'>";
+		echo "Phone: ";
+		echo get_theme_mod('minicreative_contact_phone');
+		echo "</div>";
+	}
+	if (get_theme_mod('minicreative_contact_fax')) {
+		echo "<div class='contact_item'>";
+		echo "Fax: ";
+		echo get_theme_mod('minicreative_contact_fax');
+		echo "</div>";
+	}
+}
+
+// Theme Setup Functions =====================================================
+
 // Register Menus: adds support for menus in header & footer
 function minicreative_register_menus() {
 	register_nav_menus(array(
@@ -12,34 +45,20 @@ function minicreative_register_menus() {
 		'footer-menu' => 'Footer Menu'
 	));
 }
-
-// Customize Register: updates the Customize API
-function minicreative_customize_register ( $wp_customize ) {
-
-	// Header: Add Section
-	$wp_customize->add_section('minicreative_header', array(
-		'title' => 'Header',
-		'description' => 'Update your logo, header background image, and other settings',
-		'priority' => 40
-	));
-
-	// Header: Add Logo
-	$wp_customize->add_setting('minicreative_logo');
-	$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'minicreative_logo', array(
-		'label' => 'Logo',
-		'section' => 'minicreative_header',
-		'settings' => 'minicreative_logo',
-	)));
-
-	// Header: Add Background Image
-	$wp_customize->add_setting('minicreative_header_bg');
-	$wp_customize->add_control( new WP_Customize_Image_Control($wp_customize, 'minicreative_header_bg', array(
-		'label' => 'Header Background',
-		'section' => 'minicreative_header',
-		'settings' => 'minicreative_header_bg',
-	)));
-}
-
-// Actions ======================================================================
-add_action('customize_register', 'minicreative_customize_register');
 add_action('init', 'minicreative_register_menus');
+
+// Register Sidebars: add support for sidebars & widgers
+function minicreative_register_sidebars() {
+
+	// Footer widget area
+	register_sidebar( array(
+		'name'          => 'Footer',
+		'id'            => 'fooder',
+		'before_widget' => '<div>',
+		'after_widget'  => '</div>',
+	) );
+}
+add_action('widgets_init', 'minicreative_register_sidebars');
+
+// Setup Customizer
+include("customizer.php");
