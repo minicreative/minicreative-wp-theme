@@ -2,37 +2,51 @@
 
 /*
 MiniCreative WordPress Theme
-Theme functions
+Parent Theme functions
 */
 
 // Theme Display Functions ===================================================
 
-function print_contact_info () {
-	if (get_theme_mod('minicreative_contact_email')) {
-		echo "<div class='contact_item'>";
-		echo "<a href='mailto:".get_theme_mod('minicreative_contact_email')."'>";
-			echo get_theme_mod('minicreative_contact_email');
-		echo "</a>";
-		echo "</div>";
+if (!function_exists('print_logo')) {
+	function print_logo () {
+		include("includes/logo.php");
 	}
-	if (get_theme_mod('minicreative_contact_address1')) {
-		echo "<div class='contact_item'>";
-		echo get_theme_mod('minicreative_contact_address1');
-		echo "<br />";
-		echo get_theme_mod('minicreative_contact_address2');
-		echo "</div>";
+}
+
+if (!function_exists('print_navigation')) {
+	function print_navigation () {
+		include("includes/navigation.php");
 	}
-	if (get_theme_mod('minicreative_contact_phone')) {
-		echo "<div class='contact_item'>";
-		echo "Phone: ";
-		echo get_theme_mod('minicreative_contact_phone');
-		echo "</div>";
-	}
-	if (get_theme_mod('minicreative_contact_fax')) {
-		echo "<div class='contact_item'>";
-		echo "Fax: ";
-		echo get_theme_mod('minicreative_contact_fax');
-		echo "</div>";
+}
+
+if (!function_exists('print_contact_info')) {
+	function print_contact_info () {
+		if (get_theme_mod('minicreative_contact_email')) {
+			echo "<div class='contact_item'>";
+			echo "<a href='mailto:".get_theme_mod('minicreative_contact_email')."'>";
+				echo get_theme_mod('minicreative_contact_email');
+			echo "</a>";
+			echo "</div>";
+		}
+		if (get_theme_mod('minicreative_contact_address1')) {
+			echo "<div class='contact_item'>";
+			echo get_theme_mod('minicreative_contact_address1');
+			echo "<br />";
+			echo get_theme_mod('minicreative_contact_address2');
+			echo "</div>";
+		}
+		if (get_theme_mod('minicreative_contact_phone')) {
+			echo "<div class='contact_item'>";
+			echo "Phone: ";
+			echo get_theme_mod('minicreative_contact_phone');
+			echo "</div>";
+		}
+		if (get_theme_mod('minicreative_contact_fax')) {
+			echo "<div class='contact_item'>";
+			echo "Fax: ";
+			echo get_theme_mod('minicreative_contact_fax');
+			echo "</div>";
+		}
 	}
 }
 
