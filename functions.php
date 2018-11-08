@@ -9,13 +9,27 @@ Parent Theme functions
 
 if (!function_exists('print_logo')) {
 	function print_logo () {
-		include("includes/logo.php");
+		echo "<div class='logo'>";
+		echo "<a href='".get_home_url()."'>";
+		if (get_theme_mod('minicreative_logo')) 
+			echo "<img src='".get_theme_mod('minicreative_logo')."' alt='".get_bloginfo('name')."' />";
+		else 
+			echo "<h1>".get_bloginfo('name')."</h1>";
+		echo "</a>";
+		echo "</div>";
 	}
 }
 
 if (!function_exists('print_navigation')) {
 	function print_navigation () {
-		include("includes/navigation.php");
+		$headerMenuConfig = array(
+			'depth' => 2,
+			'container' => 'div',
+			'container_class' => 'navigation'
+		);
+		if (has_nav_menu('header-menu'))
+			$headerMenuConfig['theme_location'] = 'header-menu';
+		wp_nav_menu($headerMenuConfig); 
 	}
 }
 

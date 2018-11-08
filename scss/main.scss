@@ -5,29 +5,37 @@ Author: Tomas Roy
 Written for MiniCreative sites
 */
 
-// Resets & Basic Classes
-div {box-sizing:border-box;}
-.end {margin-right:0px;}
-img {border:0; max-width:100%;}
-a {color:inherit;}
-.clear {clear:both;}
-
 // SASS Plugins
 @mixin box-shadow($shadow) {-moz-box-shadow: $shadow; -webkit-box-shadow: $shadow; box-shadow: $shadow;}
 @mixin border-radius($radius) {-webkit-border-radius: $radius; border-radius: $radius; background-clip: padding-box;}
 
-// Size Variables
-$pad: 30px;
-$pad_: 20px;
+// Resets & Basic Classes
+html, body {margin:0px; padding:0px;}
+h1, h2, h3 {margin:0px; color:inherit; font-family:inherit;}
+div {box-sizing:border-box;}
+.end {margin-right:0px;}
+img {border:0; max-width:100%;}
+a {color:inherit; text-decoration:none;}
+.clear {clear:both;}
 
-$max_container: 1040px;
-$large_container: 960px;
-$medium_container: 720px;
-$small_container: 100%;
+// Size Variables (for child theme)
+// $pad: 30px;
+// $pad_: 20px;
+
+// $max_container: 1040px;
+// $large_container: 960px;
+// $medium_container: 720px;
+// $small_container: 100%;
+
+// $header: 60px;
 
 // Size Includes
 @mixin row {
 	margin-top:$pad; 
+	@include breakpoint(m) {margin-top:$pad_;}
+}
+@mixin container_pad {
+	padding-bottom:$pad;
 	@include breakpoint(m) {margin-top:$pad_;}
 }
 
@@ -47,30 +55,21 @@ $small_container: 100%;
 	}
 }
 
-// Color Variables
-$primary: #847040;
-$primary_: #665631;
-$subtle:#eee;
-$subtle_:#e5e5e5;
-
 // Page Design
 body {background:#fff;}
-html, body {margin:0px; padding:0px;}
 
 // Fonts
-body, h1, h2, h3, h4, h5 {font-family:Arial; color:#222;}
-body {line-height:1.5; font-weight:300;}
-h1, h2, h3, h4, h5 {margin:0px; line-height:1.4;}
-body {font-size:16px;}
+body {
+	font-family:Arial; 
+	font-size:16px;
+	color:#222;
+	line-height:1.4;
+}
 h1 {font-size:26px;}
 h2 {font-size:22px;}
-h3 {font-size:14px;}
+h3 {font-size:18px;}
 
 // Layout Styles ======================================================
-.section {
-	width:100%;
-}
-
 .container {
 	width: $max_container; margin:0px auto;
 	@include breakpoint(l) {width:$large_container;}
@@ -82,36 +81,42 @@ h3 {font-size:14px;}
 
 // Site Styles ========================================================
 header {
+
 	padding:20px 0px;
-	border-bottom:1px solid #999;
+	
 	.logo {
-		float:left; height:80px;
+		float:left;
 		img {height:100%;}
 	}
+
 	.navigation {
-		display:block;
-		text-align:right;
-		ul {display:block; margin:0px; padding:0px;}
+
+		display:block; text-align:right;
+		ul {display:block; margin:0px; padding:0px;} // Reset lists
+
+		// Top-Level Links
 		> ul > li  {
-			display:inline-block; position:relative; margin-left:20px;
-			&:hover {
-				.sub-menu {display:block;}
-			}
+			display:inline-block; position:relative;
+
+			// Show dropdown menus on hover
+			&:hover .sub-menu {display:block;}
 		}
+
+		// Dropdown Menus
 		ul.sub-menu {
-			display:none; // Hide until hover
-			position:absolute; top:100%; left:0px; width:100%; 
-			text-align:left;
-			> li {display:inline-block;}
+			display:none; // Hide dropdown menus until hover
+			position:absolute; top:100%; left:0px; width:100%; text-align:left;
+
+			// Dropdown Links
+			> li {display:block;}
 		}
 	}
 }
 
 footer {
-	padding:20px;
-	border-top:1px solid #999;
+	@include container_pad;
 }
 
 .content {
-	padding:30px;
+	@include container_pad;
 }
