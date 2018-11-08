@@ -50,6 +50,3 @@
 			<div class="clear"></div>
 		</div>
 	</header>
-
-	<!-- After Header -->
-	<?php print_after_header(); ?>

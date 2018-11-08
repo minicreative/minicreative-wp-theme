@@ -41,11 +41,6 @@ if (!function_exists('print_navigation')) {
 	}
 }
 
-// Print After Header: displays content after header
-if (!function_exists('print_after_header')) {
-	function print_after_header () {}
-}
-
 // Print Contact Info: displays contact information from customizer
 if (!function_exists('print_contact_info')) {
 	function print_contact_info () {
