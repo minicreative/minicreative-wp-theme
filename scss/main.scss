@@ -18,16 +18,16 @@ img {border:0; max-width:100%;}
 a {color:inherit; text-decoration:none;}
 .clear {clear:both;}
 
-// Size Variables (for child theme)
-// $pad: 30px;
-// $pad_: 20px;
+// Default Size Variables
+$pad: 30px !default;
+$pad_: 20px !default;
 
-// $max_container: 1040px;
-// $large_container: 960px;
-// $medium_container: 720px;
-// $small_container: 100%;
+$max_container: 1040px !default;
+$large_container: 960px !default;
+$medium_container: 720px !default;
+$small_container: 100% !default;
 
-// $header: 60px;
+$header: 60px !default;
 
 // Size Includes
 @mixin row {
