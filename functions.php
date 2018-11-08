@@ -7,6 +7,12 @@ Parent Theme functions
 
 // Theme Display Functions ===================================================
 
+// Print Head Includes: includes content in HTML head
+if (!function_exists('print_head_includes')) {
+	function print_head_includes () {}
+}
+
+// Print Logo: displays wrapped, linked logo
 if (!function_exists('print_logo')) {
 	function print_logo () {
 		echo "<div class='logo'>";
@@ -20,6 +26,7 @@ if (!function_exists('print_logo')) {
 	}
 }
 
+// Print Navigation: displays header-menu or default nav menu (depth 2)
 if (!function_exists('print_navigation')) {
 	function print_navigation () {
 		$headerMenuConfig = array(
@@ -27,12 +34,19 @@ if (!function_exists('print_navigation')) {
 			'container' => 'div',
 			'container_class' => 'navigation'
 		);
-		if (has_nav_menu('header-menu'))
+		if (has_nav_menu('header-menu')) {
 			$headerMenuConfig['theme_location'] = 'header-menu';
+		}	
 		wp_nav_menu($headerMenuConfig); 
 	}
 }
 
+// Print After Header: displays content after header
+if (!function_exists('print_after_header')) {
+	function print_after_header () {}
+}
+
+// Print Contact Info: displays contact information from customizer
 if (!function_exists('print_contact_info')) {
 	function print_contact_info () {
 		if (get_theme_mod('minicreative_contact_email')) {
