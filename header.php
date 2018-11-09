@@ -37,16 +37,6 @@
 
 <body>
 
-	<!-- Header -->
-	<header>
-		<div class="container">
-		
-			<!-- Logo -->
-			<?php print_logo(); ?>
+	<?php print_site_header(); ?>
 
-			<!-- Navigation -->
-			<?php print_navigation(); ?>
-
-			<div class="clear"></div>
-		</div>
-	</header>
+	<?php print_page_header(); ?>

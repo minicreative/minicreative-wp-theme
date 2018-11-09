@@ -5,11 +5,35 @@ MiniCreative WordPress Theme
 Parent Theme functions
 */
 
+// Basics ====================================================================
+add_theme_support('post-thumbnails'); 
+
 // Theme Display Functions ===================================================
 
 // Print Head Includes: includes content in HTML head
 if (!function_exists('print_head_includes')) {
 	function print_head_includes () {}
+}
+
+// Print Site Header
+if (!function_exists('print_site_header')) {
+	function print_site_header () {
+		include("includes/site-header.php");
+	}
+}
+
+// Print After Header: includes content after <header>
+if (!function_exists('print_page_header')) {
+	function print_page_header () {
+		include("includes/page-header.php");
+	}
+}
+
+// Print Site Footer
+if (!function_exists('print_site_footer')) {
+	function print_site_footer () {
+		include("includes/site-footer.php");
+	}
 }
 
 // Print Logo: displays wrapped, linked logo
@@ -38,6 +62,13 @@ if (!function_exists('print_navigation')) {
 			$headerMenuConfig['theme_location'] = 'header-menu';
 		}	
 		wp_nav_menu($headerMenuConfig); 
+	}
+}
+
+// Print Post Content: displays post content
+if (!function_exists('print_post_content')) {
+	function print_post_content () {
+		include("includes/post.php");
 	}
 }
 
@@ -87,18 +118,10 @@ add_action('init', 'minicreative_register_menus');
 // Register Sidebars: add support for sidebars & widgers
 function minicreative_register_sidebars() {
 
-	// Footer widget area
+	// Primary widget area
 	register_sidebar( array(
 		'name'          => 'Primary Sidebar',
 		'id'            => 'primary-sidebar',
-		'before_widget' => '<div>',
-		'after_widget'  => '</div>',
-	));
-
-	// Footer widget area
-	register_sidebar( array(
-		'name'          => 'Footer',
-		'id'            => 'footer-sidebar',
 		'before_widget' => '<div>',
 		'after_widget'  => '</div>',
 	));
