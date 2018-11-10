@@ -1,20 +1,20 @@
 <?php get_header(); ?>
 
-	<div class="content">
-		<div class="container">
+<div class="content <?= get_post_field('post_name', get_post()); ?>">
+	<div class="container">
 			
-			<?php 
-				if (have_posts()) {
-					while (have_posts()) {
-						the_post();
-						print_post_content();
-					}
-				} else {
-					echo "<p>Sorry, no posts matched your criteria.</p>";
-				}
-			?>
+	<?php
+		if (have_posts()) {
+			while (have_posts()) {
+				the_post();
+				the_content();
+			}
+		} else {
+			echo "<p>Sorry, no posts matched your criteria.</p>";
+		}
+	?>
 
-		</div>
 	</div>
+</div>
 
 <?php get_footer(); ?>

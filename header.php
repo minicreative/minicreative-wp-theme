@@ -21,11 +21,11 @@
 	<link href="<?php echo get_template_directory_uri(); ?>/sass_compiler/server.php/main.scss" rel="stylesheet" type="text/css" />
 	<?php endif; ?>
 
-	<!-- JS (Parent) -->
-	<script src="<?php echo get_template_directory_uri(); ?>/js/main.js" type="text-javascript"></script>
-
 	<!-- Libraries (Parent) -->
 	<script src="<?php echo get_template_directory_uri(); ?>/plugins/jquery.min.js"></script>
+
+	<!-- JS (Parent) -->
+	<script src="<?php echo get_template_directory_uri(); ?>/js/main.js" type="text/javascript"></script>
 
 	<!-- Extra Imports (if applicable) -->
 	<?php print_head_includes(); ?>

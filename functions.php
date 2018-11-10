@@ -6,7 +6,8 @@ Parent Theme functions
 */
 
 // Basics ====================================================================
-add_theme_support('post-thumbnails'); 
+add_theme_support('post-thumbnails');
+add_filter('use_default_gallery_style', '__return_false'); 
 
 // Theme Display Functions ===================================================
 
@@ -27,6 +28,11 @@ if (!function_exists('print_page_header')) {
 	function print_page_header () {
 		include("includes/page-header.php");
 	}
+}
+
+// Print Below Contact
+if (!function_exists('print_below_content')) {
+	function print_below_content () {}
 }
 
 // Print Site Footer
@@ -65,13 +71,6 @@ if (!function_exists('print_navigation')) {
 	}
 }
 
-// Print Post Content: displays post content
-if (!function_exists('print_post_content')) {
-	function print_post_content () {
-		include("includes/post.php");
-	}
-}
-
 // Print Contact Info: displays contact information from customizer
 if (!function_exists('print_contact_info')) {
 	function print_contact_info () {
@@ -103,6 +102,51 @@ if (!function_exists('print_contact_info')) {
 		}
 	}
 }
+
+// Shortcodes ===============================================================
+
+// Divider
+function register_divider_shortcode() {
+    function divider_shortcode($atts, $content) {
+		if ($atts == "") {
+			return "<div class='divider'></div>";
+		}
+		return "<div class='divider {$atts['type']}'></div>";
+    }
+    add_shortcode('divider', 'divider_shortcode');
+}
+add_action('init', 'register_divider_shortcode');
+
+// Column
+function register_column_shortcode() {
+    function column_shortcode($atts, $content) {
+        return "<div class='column {$atts['type']}'>".do_shortcode($content)."</div>";
+    }
+    add_shortcode('column', 'column_shortcode');
+}
+add_action('init', 'register_column_shortcode');
+
+// Button
+function register_button_shortcode() {
+    function button_shortcode($atts, $content) {
+        return "<a href='{$atts['link']}' class='button'>{$content}</a>";
+    }
+    add_shortcode('button', 'button_shortcode');
+}
+add_action('init', 'register_button_shortcode');
+
+// Shortcode BR/P fix
+function shortcode_empty_paragraph_fix($content) {
+    $array = array(
+        '<p>['    => '[',
+        ']</p>'   => ']',
+        ']<br />' => ']',
+        ']<br>'   => ']',
+    );
+    $content = strtr($content, $array);
+    return $content;
+}
+add_filter('the_content', 'shortcode_empty_paragraph_fix');
 
 // Theme Setup Functions =====================================================
 

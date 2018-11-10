@@ -1,4 +1,12 @@
 
+$(document).ready(function () {
+	fixWordPressImageAttributes();
+})
+
+function fixWordPressImageAttributes () {
+	jQuery('img').removeAttr('width').removeAttr('height');
+}
+
 function inializeRoyalSlider () {
     jQuery(document).ready(function($) {
 		$('.slider').royalSlider({

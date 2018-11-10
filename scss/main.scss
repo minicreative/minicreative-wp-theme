@@ -5,15 +5,8 @@ Author: Tomas Roy
 Written for MiniCreative sites
 */
 
-// Variable Defaults
-$pad: 30px !default;
-$pad_: 20px !default;
-
-$max_trigger: 1100px !default;
-$max_container: 1040px !default;
-
-$header: 60px !default;
-$headerPad: $pad !default;
+// Color Defaults
+$text: #222 !default;
 
 // SASS Plugins
 @mixin box-shadow($shadow) {-moz-box-shadow: $shadow; -webkit-box-shadow: $shadow; box-shadow: $shadow;}
@@ -28,20 +21,10 @@ img {border:0; max-width:100%;}
 a {color:inherit; text-decoration:none;}
 .clear {clear:both;}
 
-// Size Includes
-@mixin row {
-	margin-top:$pad; 
-	@include breakpoint(m) {margin-top:$pad_;}
-}
-@mixin container_pad {
-	padding-bottom:$pad;
-	@include breakpoint(m) {margin-top:$pad_;}
-}
-
 // Mobile Responsiveness
 @mixin breakpoint($point) {
 	@if $point == l {
-		@media screen and (max-width: $max-trigger) {@content;}
+		@media screen and (max-width: 1140px) {@content;}
 	}
 	@else if $point == m {
 		@media screen and (max-width: 1020px)  {@content;}
@@ -61,23 +44,16 @@ body {background:#fff;}
 body {
 	font-family:Arial; 
 	font-size:16px;
-	color:#222;
+	color:$text;
 	line-height:1.4;
 }
 h1 {font-size:24px;}
 h2 {font-size:20px;}
 h3 {font-size:18px;}
 
-// Reusable Styles ====================================================
-.columns {
-	.column {
-		display:inline-block; vertical-align:top;
-	}
-}
-
 // Layout Styles ======================================================
 .container {
-	width: $max_container; margin:0px auto;
+	width: 1080px; margin:0px auto;
 	@include breakpoint(l) {width:960px;}
 	@include breakpoint(m) {width:720px;}
 	@include breakpoint(s) {width:480px; padding:0px $pad_;}
@@ -85,11 +61,9 @@ h3 {font-size:18px;}
 }
 
 header {
-
-	padding:$headerPad 0px;
 	
 	.logo {
-		float:left; height:$header;
+		float:left;
 		img {height:100%;}
 	}
 
