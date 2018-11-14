@@ -33,7 +33,13 @@ function setColumnWidth () {
 			// Handle columns by class
 			if (column.hasClass("half")) {
 				column.css("width", ((columns.width()-margin)/2)-3);
-				if (column.index() % 2 !== 0) {
+				if ((((column.index()+1) % 2) == 0)) {
+					column.css("marginRight", 0);
+				}
+			}
+			if (column.hasClass("third")) {
+				column.css("width", ((columns.width()-(margin*2))/3));
+				if ((((column.index()+1) % 3) == 0)) {
 					column.css("marginRight", 0);
 				}
 			}
