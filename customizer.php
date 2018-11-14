@@ -25,6 +25,20 @@ function minicreative_customize_register ( $wp_customize ) {
 		'settings' => 'minicreative_logo_alt',
 	)));
 
+	// Copyright =================================================================
+
+	$wp_customize->add_section('minicreative_copyright_section', array(
+		'title' => 'Copyright',
+		'description' => 'Provide a copyright statement for the footer',
+		'priority' => 200
+	));
+	$wp_customize->add_setting('minicreative_copyright');
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_copyright', array(
+		'label' => 'Copyright Message',
+		'section' => 'minicreative_copyright_section',
+		'settings' => 'minicreative_copyright',
+	)));
+
 	// Contact ================================================================
 
 	$wp_customize->add_section('minicreative_contact', array(
@@ -63,6 +77,13 @@ function minicreative_customize_register ( $wp_customize ) {
 		'label' => 'Address (line 2)',
 		'section' => 'minicreative_contact',
 		'settings' => 'minicreative_contact_address2'
+	)));
+	$wp_customize->add_setting('minicreative_map_embed');
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_map_embed', array(
+		'label' => 'Google Maps Embed Code',
+		'section' => 'minicreative_contact',
+		'settings' => 'minicreative_map_embed',
+		'description' => 'Set width and height parameters to 100%'
 	)));
 	$wp_customize->add_setting('minicreative_contact_facebook');
 	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_contact_facebook', array(

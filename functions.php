@@ -9,6 +9,17 @@ Parent Theme functions
 add_theme_support('post-thumbnails');
 add_filter('use_default_gallery_style', '__return_false'); 
 
+// Supress ACF Pro Update Notifications
+function filter_plugin_updates( $value ) {
+    unset($value->response['advanced-custom-fields-pro/acf.php']);
+    return $value;
+}
+add_filter('site_transient_update_plugins', 'filter_plugin_updates');
+
+// Disable outdated WordPress jQuery include
+wp_deregister_script('jquery'); 
+wp_register_script('jquery', '', '', '', true);
+
 // Theme Display Functions ===================================================
 
 // Print Head Includes: includes content in HTML head
@@ -117,10 +128,17 @@ function register_divider_shortcode() {
 }
 add_action('init', 'register_divider_shortcode');
 
-// Column
+// Columns & Column
+function register_columns_shortcode() {
+    function columns_shortcode($atts, $content) {
+        return "<div class='columns'>".do_shortcode($content)."</div>";
+    }
+    add_shortcode('columns', 'columns_shortcode');
+}
+add_action('init', 'register_columns_shortcode');
 function register_column_shortcode() {
     function column_shortcode($atts, $content) {
-        return "<div class='column {$atts['type']}'>".do_shortcode($content)."</div>";
+        return "<div class='column {$atts['width']}'>".do_shortcode($content)."</div>";
     }
     add_shortcode('column', 'column_shortcode');
 }

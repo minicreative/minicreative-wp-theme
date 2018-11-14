@@ -1,35 +1,43 @@
 
+// On Page Load
 $(document).ready(function () {
+	setColumnWidth();
 	fixWordPressImageAttributes();
 })
+
+// On Page Resize
+$(window).resize(function () {
+	setColumnWidth();
+});
 
 function fixWordPressImageAttributes () {
 	jQuery('img').removeAttr('width').removeAttr('height');
 }
 
-function inializeRoyalSlider () {
-    jQuery(document).ready(function($) {
-		$('.slider').royalSlider({
-		arrowsNav: true,
-		loop: true,
-		keyboardNavEnabled: true,
-		controlsInside: false,
-		imageScaleMode: 'fill',
-		imageAlignCenter: true,
-		arrowsNav: false,
-		autoPlay: {
-			enabled: true,
-			stopAtAction: true,
-			pauseOnHover: false,
-			delay: '300',
-		},
-		controlNavigation: 'bullets',
-		thumbsFitInViewport: false,
-		navigateByClick: true,
-		startSlideId: 0,
-		transitionType:'fade',
-		transitionSpeed: 1400,
-		globalCaption: false,
-		});
-	});
+function setColumnWidth () {
+	$(".columns").each(function () {
+
+		// Get container
+		let columns = $(this);
+
+		// Handle each column
+		columns.find(".column").each(function () {
+
+			// Get column
+			let column = $(this);
+	
+			// Get and format margin for math
+			let margin = parseInt(column.css("marginRight").replace('px',''));
+			if (margin < 1) margin = parseInt(column.prev().css("marginRight").replace('px',''));
+	
+			// Handle columns by class
+			if (column.hasClass("half")) {
+				column.css("width", ((columns.width()-margin)/2)-3);
+				if (column.index() % 2 !== 0) {
+					column.css("marginRight", 0);
+				}
+			}
+				
+		})
+	})
 }
