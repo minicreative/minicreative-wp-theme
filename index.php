@@ -4,6 +4,8 @@
 	<div class="container">
 			
 	<?php
+
+		// Handle matching post or posts
 		if (have_posts()) {
 
 			// Print singular post
@@ -17,8 +19,11 @@
 			// Print list of post previews
 			else include("includes/post-list.php");
 
-		} else {
-			echo "<p>Sorry, no posts matched your criteria.</p>";
+		} 
+		
+		// Handle empty query
+		else {
+			echo "<p>Sorry, nothing matches this query.</p>";
 		}
 	?>
 

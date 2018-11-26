@@ -20,6 +20,11 @@ add_filter('site_transient_update_plugins', 'filter_plugin_updates');
 wp_deregister_script('jquery'); 
 wp_register_script('jquery', '', '', '', true);
 
+// Shorten excerpt length
+add_filter('excerpt_length', function($length) {
+    return 30;
+});
+
 // Theme Display Functions ===================================================
 
 // Print Head Includes: includes content in HTML head

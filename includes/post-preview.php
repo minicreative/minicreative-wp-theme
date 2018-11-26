@@ -1,4 +1,7 @@
 <div class="post-preview">
+	<?php 
+		if (has_post_thumbnail()) the_post_thumbnail();
+	?>
 	<h2>
 		<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 	</h2>
@@ -8,6 +11,7 @@
 	<div class="excerpt">
 		<?php the_excerpt(); ?>
 	</div>
+	<a href="<?php the_permalink(); ?>" class="read-more">Read More</a>
 	<div class="categories">
 		<?php
 			$categories = wp_get_post_categories(get_the_ID());
