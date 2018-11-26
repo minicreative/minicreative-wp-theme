@@ -16,7 +16,7 @@ $padding: 30px !default;
 @mixin border-radius($radius) {-webkit-border-radius: $radius; border-radius: $radius; background-clip: padding-box;}
 
 // Resets & Basic Classes
-html, body {margin:0px; padding:0px;}
+html, body {margin:0px; padding:0px; min-height:100%;}
 h1, h2, h3 {margin:0px; color:inherit; font-family:inherit;}
 div {box-sizing:border-box;}
 input, textarea {width:100%; box-sizing:border-box; font-size:16px;}
@@ -39,6 +39,9 @@ a {color:inherit; text-decoration:none;}
 	@else if $point == xs {
 		@media screen and (max-width: 480px)  {@content;}
 	}
+	@else if $point == notTouch {
+		@media screen and (min-width: 1021px)  {@content;}
+	}
 }
 
 // Page Design
@@ -60,8 +63,8 @@ h3 {font-size:18px;}
 	width: 1080px; margin:0px auto;
 	@include breakpoint(l) {width:960px;}
 	@include breakpoint(m) {width:720px;}
-	@include breakpoint(s) {width:480px; padding:0px $pad_;}
-	@include breakpoint(xs) {width:100%;}
+	@include breakpoint(s) {width:440px;}
+	@include breakpoint(xs) {width:100%; padding:0px 20px;}
 }
 
 .columns {
@@ -74,6 +77,8 @@ h3 {font-size:18px;}
 }
 
 header {
+
+	.container {position:relative;}
 	
 	.logo {
 		float:left;
@@ -81,24 +86,137 @@ header {
 	}
 
 	.navigation {
-		display:block; text-align:right;
-		ul {display:block; margin:0px; padding:0px;} // Reset lists
 
-		// Top-Level Links
-		> ul > li  {
-			display:inline-block; position:relative;
+		// Reset lists
+		ul {display:block; margin:0px; padding:0px;}
 
-			// Show dropdown menus on hover
-			&:hover .sub-menu {display:block;}
+		// For desktop computers
+		@include breakpoint(notTouch) {
+			display:block; text-align:right;
+
+			// Top-Level Links
+			> ul > li  {
+				display:inline-block; position:relative;
+
+				// Show dropdown menus on hover
+				&:hover .sub-menu {display:block;}
+			}
+
+			// Dropdown Menus
+			ul.sub-menu {
+				display:none; // Hide dropdown menus until hover
+				position:absolute; top:100%; left:0px; width:100%; text-align:left;
+
+				// Dropdown Links
+				> li {display:block;}
+			}
 		}
 
-		// Dropdown Menus
-		ul.sub-menu {
-			display:none; // Hide dropdown menus until hover
-			position:absolute; top:100%; left:0px; width:100%; text-align:left;
+		// For mobile devices
+		@include breakpoint(m) {
+			display:none;
+			position:fixed; height:100vh; width:320px; left:0px; top:0px; z-index:500;
+			overflow:scroll;
+			background:white; @include box-shadow(0px 0px 5px rgba(0,0,0,0.4));
+			padding:20px 0px;
 
-			// Dropdown Links
-			> li {display:block;}
+			li {
+				padding:0px 20px; line-height:2.4; font-size:18px; border-top:1px solid #e5e5e5;
+				a {display:block;}
+			}
+			ul.sub-menu {
+				margin:0px -20px;
+				li {display:block; padding-left:40px;}
+			}
+
+			&.show {display:block; -webkit-animation:slideInLeft 300ms; animation:slideInLeft 300ms;}
+		}
+		@include breakpoint(s) {
+			width:280px;
+		}
+	}
+
+	// Mobile Navigation Components
+	#nav-underlay {
+		display:none;
+		position:fixed; width:100vh; height:100vh; top:0px; left:0px; z-index:400;
+		background:rgba(0,0,0,0.5);
+		&.show {display:block; -webkit-animation:fadeIn 300ms; animation:fadeIn 300ms;}
+	}
+	#nav-toggle {
+		display:none;
+		position:absolute; right:0px; top:50%; margin-top:-16px; 
+		width:32px; height:32px; font-size:32px; line-height:1;
+		@include breakpoint(m) {display:block;}
+		@include breakpoint(xs) {right:20px;}
+	}
+}
+
+// WordPress Styles =====================================================
+body.customize-support {
+	header .navigation {
+		@include breakpoint(m) {
+			padding-top:66px;
 		}
 	}
 }
+
+// Transitions ==========================================================
+@-webkit-keyframes fadeIn {
+	from {opacity:0;} to {opacity:1;}
+}  
+@keyframes fadeIn {
+	from {opacity:0;} to {opacity:1;}
+}
+@-webkit-keyframes fadeOut {
+	from {opacity:1;} to {opacity:0;}
+}  
+@keyframes fadeOut {
+	from {opacity:1;} to {opacity:0;}
+}
+@-webkit-keyframes slideInLeft {
+	from {
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+		visibility: visible;
+	}
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+@keyframes slideInLeft {
+	from {
+		-webkit-transform: translate3d(-100%, 0, 0);
+		transform: translate3d(-100%, 0, 0);
+		visibility: visible;
+	}
+	to {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+}
+@-webkit-keyframes slideOutRight {
+	from {
+	-webkit-transform: translate3d(0, 0, 0);
+	transform: translate3d(0, 0, 0);
+	}
+
+	to {
+	visibility: hidden;
+	-webkit-transform: translate3d(100%, 0, 0);
+	transform: translate3d(100%, 0, 0);
+	}
+}
+@keyframes slideOutRight {
+	from {
+		-webkit-transform: translate3d(0, 0, 0);
+		transform: translate3d(0, 0, 0);
+	}
+
+	to {
+		visibility: hidden;
+		-webkit-transform: translate3d(100%, 0, 0);
+		transform: translate3d(100%, 0, 0);
+	}
+}  
