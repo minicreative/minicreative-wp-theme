@@ -37,7 +37,7 @@ if (!function_exists('print_site_header')) {
 // Print After Header: includes content after <header>
 if (!function_exists('print_page_header')) {
 	function print_page_header () {
-		include("includes/page-header.php");
+		if (!is_front_page()) include("includes/page-header.php");
 	}
 }
 

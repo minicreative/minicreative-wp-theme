@@ -5,10 +5,18 @@
 			
 	<?php
 		if (have_posts()) {
-			while (have_posts()) {
-				the_post();
-				the_content();
-			}
+
+			// Print singular post
+			if (is_singular()) {
+				while (have_posts()) {
+					the_post();
+					the_content();
+				}
+			} 
+			
+			// Print list of post previews
+			else include("includes/post-list.php");
+
 		} else {
 			echo "<p>Sorry, no posts matched your criteria.</p>";
 		}
