@@ -37,8 +37,9 @@ function setColumnWidth () {
 		// Get window width
 		let windowWidth = $(window).width();
 
-		// Detect if mobile size
+		// Make mobile & table flags
 		let isMobile = (windowWidth < 760);
+		let isTablet = (windowWidth < 1020);
 
 		// Handle each column
 		columns.find(".column").each(function () {
@@ -60,7 +61,7 @@ function setColumnWidth () {
 			let margin = parseInt(column.css("marginRight").replace('px',''));
 	
 			// Set columns to half width
-			if (column.hasClass("half") || (column.hasClass("third") && windowWidth < 1020)) {
+			if (column.hasClass("half") || (column.hasClass("third") && isTablet)) {
 				column.css("width", ((columns.width()-margin)/2)-3);
 				if ((((column.index()+1) % 2) == 0)) {
 					column.css("marginRight", 0);
@@ -68,7 +69,7 @@ function setColumnWidth () {
 			}
 
 			// Set columns to third width
-			else if (column.hasClass("third")) {
+			else if (column.hasClass("third") || column.hasClass("tabletThird")) {
 				column.css("width", ((columns.width()-(margin*2))/3));
 				if ((((column.index()+1) % 3) == 0)) {
 					column.css("marginRight", 0);

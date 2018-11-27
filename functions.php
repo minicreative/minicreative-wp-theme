@@ -119,6 +119,24 @@ if (!function_exists('print_contact_info')) {
 	}
 }
 
+if (!function_exists('print_social_networks')) {
+	function print_social_networks () {
+		$socials = array(
+			'facebook' => 'minicreative_contact_facebook',
+			'twitter' => 'minicreative_contact_twitter',
+			'instagram' => 'minicreative_contact_instagram',
+			'linkedin-in' => 'minicreative_contact_linkedin'
+		);
+		echo "<div class='social'>";
+		foreach ($socials as $name => $customizekey) {
+			if (get_theme_mod($customizekey)) {
+				echo "<a href='".get_theme_mod($customizekey)."'><span class='fab fa-{$name}'></span></a>";
+			}
+		}
+		echo "</div>";
+	}
+}
+
 // Shortcodes ===============================================================
 
 // Divider

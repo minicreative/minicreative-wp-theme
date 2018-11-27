@@ -10,6 +10,7 @@ $text: #222 !default;
 
 // Sizing Defaults
 $padding: 30px !default;
+$padding_: 20px !default;
 
 // SASS Plugins
 @mixin box-shadow($shadow) {-moz-box-shadow: $shadow; -webkit-box-shadow: $shadow; box-shadow: $shadow;}
@@ -53,10 +54,20 @@ body {
 	font-size:16px;
 	color:$text;
 	line-height:1.4;
+	@include breakpoint(s) {font-size:14px;}
 }
-h1 {font-size:24px;}
-h2 {font-size:20px;}
-h3 {font-size:18px;}
+h1 {
+	font-size:24px;
+	@include breakpoint(s) {font-size:20px;}
+}
+h2 {
+	font-size:20px;
+	@include breakpoint(s) {font-size:18px;}
+}
+h3 {
+	font-size:18px;
+	@include breakpoint(s) {font-size:16px;}
+}
 
 // Layout Styles ======================================================
 .container {
@@ -71,17 +82,19 @@ h3 {font-size:18px;}
 	display:block;
 	.column {
 		display:inline-block; vertical-align:top; margin-right:$padding;
+		@include breakpoint(m) {margin-right:$padding_;}
 		&.full {width:100%; margin-right:0px;}
-		&.end {margin-right:0px;}
 	}
 }
 
 header {
 
+	position:relative; z-index:300;
+
 	.container {position:relative;}
 	
 	.logo {
-		float:left;
+		float:left; position:relative; z-index:350;
 		img {height:100%;}
 	}
 
@@ -92,7 +105,7 @@ header {
 
 		// For desktop computers
 		@include breakpoint(notTouch) {
-			display:block; text-align:right;
+			position:relative; z-index:300; display:block; text-align:right;
 
 			// Top-Level Links
 			> ul > li  {
@@ -149,6 +162,18 @@ header {
 		width:32px; height:32px; font-size:32px; line-height:1;
 		@include breakpoint(m) {display:block;}
 		@include breakpoint(xs) {right:20px;}
+	}
+}
+
+.content {
+	img.alignleft {
+		float:left; margin-right:$padding; margin-bottom:20px;
+	}
+	img.alignright {
+		float:right; margin-left:$padding; margin-bottom:20px;
+	}
+	img.alignleft, img.alignright {
+		@include breakpoint(s) {float:none; width:100%; margin:0px 0px 20px;}
 	}
 }
 
