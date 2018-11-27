@@ -25,6 +25,11 @@
 	<script src="<?php echo get_template_directory_uri(); ?>/plugins/jquery.min.js"></script>
 	<link href="<?php echo get_template_directory_uri(); ?>/plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
 
+	<!-- Optional Libraries (Parent) -->
+	<?php if (get_theme_mod("minicreative_posts_layout") == "masonry") : ?>
+		<script src="<?php echo get_template_directory_uri(); ?>/plugins/bricks/bricks.js"></script>
+	<?php endif; ?>
+
 	<!-- JS (Parent) -->
 	<script src="<?php echo get_template_directory_uri(); ?>/js/main.js" type="text/javascript"></script>
 

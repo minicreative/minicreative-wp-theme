@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="content <?= get_post_field('post_name', get_post()); ?>">
+<div class="content <?= get_content_class(); ?>">
 	<div class="container">
 			
 	<?php
@@ -17,7 +17,7 @@
 			} 
 			
 			// Print list of post previews
-			else include("includes/post-list.php");
+			else print_post_list();
 
 		} 
 		

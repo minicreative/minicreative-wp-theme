@@ -3,6 +3,23 @@
 // Customize Register: updates the Customize API
 function minicreative_customize_register ( $wp_customize ) {
 
+	// Blog Layout ==========================================
+	$wp_customize->add_setting('minicreative_posts_layout', array(
+		'default' => 'default'
+	));
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_posts_layout', array(
+		'label' => 'Posts Layout',
+		'section' => 'static_front_page',
+		'settings' => 'minicreative_posts_layout',
+		'priority' => 200,
+		'type' => 'select',
+		'choices' => array(
+			'default' => 'Default (Full width)',
+			'thirds' => 'Basic Third Columns',
+			'masonry' => 'Masonry Third Columns'
+		)
+	)));
+
 	// Graphics =================================================================
 
 	$wp_customize->add_section('minicreative_graphics', array(

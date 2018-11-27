@@ -85,6 +85,21 @@ h3 {
 		@include breakpoint(m) {margin-right:$padding_;}
 		&.full {width:100%; margin-right:0px;}
 	}
+	&.stacked {
+		margin-bottom:-$padding; 
+		@include breakpoint(m) {margin-bottom:-$padding_;}
+		.column {
+			margin-bottom:$padding; 
+			@include breakpoint(m) {margin-bottom:$padding_;}
+		}
+	}
+	&.stacked.bricks {
+		margin-bottom:0px;
+	}
+}
+
+.bricks {
+	width:100%;
 }
 
 header {

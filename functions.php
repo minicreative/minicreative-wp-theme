@@ -58,6 +58,20 @@ if (!function_exists('print_site_footer')) {
 	}
 }
 
+// Get Content Class: returns class for content div based on current page
+if (!function_exists('get_content_class')) {
+	function get_content_class () {
+
+		// Posts page
+		if (is_home()) {
+			return "blog";
+		}
+
+		// Default (post slug)
+		return get_post_field('post_name', get_post());
+	}
+}
+
 // Print Logo: displays wrapped, linked logo
 if (!function_exists('print_logo')) {
 	function print_logo () {
@@ -84,6 +98,27 @@ if (!function_exists('print_navigation')) {
 			$headerMenuConfig['theme_location'] = 'header-menu';
 		}	
 		wp_nav_menu($headerMenuConfig); 
+	}
+}
+
+// Print Post List: displays list of post previews
+if (!function_exists('print_post_list')) {
+	function print_post_list () {
+		include("includes/post-list.php");
+	}
+}
+
+// Initialize Bricks: initializes Bricks.js
+if (!function_exists('initialize_bricks')) {
+	function initialize_bricks () {
+		include("includes/bricks.php");
+	}
+}
+
+// Print Post Preview: displays post preview for post in loop
+if (!function_exists('print_post_preview')) {
+	function print_post_preview () {
+		include("includes/post-preview.php");
 	}
 }
 
@@ -119,6 +154,7 @@ if (!function_exists('print_contact_info')) {
 	}
 }
 
+// Print Social Networks: displays FA icon based on Customizer links
 if (!function_exists('print_social_networks')) {
 	function print_social_networks () {
 		$socials = array(
