@@ -17,12 +17,6 @@ $(window).resize(function () {
 	setColumnWidth();
 });
 
-function setupLiveChatButton() {
-	$(".live-chat").on('click', function () {
-		if (Tawk_API) Tawk_API.toggle();
-	})
-}
-
 function setupMobileNav () {
 	let navigation = $(".navigation");
 	let navUnderlay = $("#nav-underlay");
