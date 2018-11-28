@@ -4,7 +4,6 @@ $(document).ready(function () {
 	setupMobileNav();
 	fixWordPressImageAttributes();
 	setColumnWidth();
-	setupLiveChatButton();
 })
 
 // On Stricter Page Load
