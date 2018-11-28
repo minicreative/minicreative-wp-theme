@@ -2,6 +2,13 @@
 
 Built from scratch
 
+## Installation
+
+*Install the following plugins:*  
+advanced-custom-fields-pro (for custom fields)
+better-search-replace (for site migration)
+contact-form-7 (for contact forms)
+
 ### Sample WPCF7 Template
 ```
 <div class="columns">

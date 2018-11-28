@@ -3,10 +3,9 @@
 	
 <head>
 
-	<!-- SEO -->
-	<title><?php echo wp_title('-', false, 'right') . get_bloginfo('name'); ?></title>
-	<meta name="description" content="" />
-	<meta name="author" content="" />
+	<!-- Title (relies on Yoast) -->
+	<title><?= get_seo_title(); ?></title>
+	<meta name="description" content="<?= get_seo_description() ?>">
 
 	<!-- META -->
 	<meta charset="UTF-8" />
@@ -16,28 +15,31 @@
 
 	<!-- CSS (Parent and Child, if applicable) -->
 	<?php if (is_child_theme()): ?>
-	<link href="<?php echo get_stylesheet_directory_uri(); ?>/sass_compiler/server.php/main.scss" rel="stylesheet" type="text/css" />
+	<link href="<?= get_stylesheet_directory_uri(); ?>/sass_compiler/server.php/main.scss" rel="stylesheet" type="text/css" />
 	<?php else: ?>
-	<link href="<?php echo get_template_directory_uri(); ?>/sass_compiler/server.php/main.scss" rel="stylesheet" type="text/css" />
+	<link href="<?= get_template_directory_uri(); ?>/sass_compiler/server.php/main.scss" rel="stylesheet" type="text/css" />
 	<?php endif; ?>
 
 	<!-- Libraries (Parent) -->
-	<script src="<?php echo get_template_directory_uri(); ?>/plugins/jquery.min.js"></script>
-	<link href="<?php echo get_template_directory_uri(); ?>/plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
+	<script src="<?= get_template_directory_uri(); ?>/plugins/jquery.min.js"></script>
+	<link href="<?= get_template_directory_uri(); ?>/plugins/fontawesome/css/all.min.css" rel="stylesheet" type="text/css" />
 
 	<!-- Optional Libraries (Parent) -->
 	<?php if (get_theme_mod("minicreative_posts_layout") == "masonry") : ?>
-		<script src="<?php echo get_template_directory_uri(); ?>/plugins/bricks/bricks.js"></script>
+		<script src="<?= get_template_directory_uri(); ?>/plugins/bricks/bricks.js"></script>
 	<?php endif; ?>
 
 	<!-- JS (Parent) -->
-	<script src="<?php echo get_template_directory_uri(); ?>/js/main.js" type="text/javascript"></script>
+	<script src="<?= get_template_directory_uri(); ?>/js/main.js" type="text/javascript"></script>
 
 	<!-- Extra Imports (if applicable) -->
 	<?php print_head_includes(); ?>
 
 	<!-- WordPress Header -->
 	<?php wp_head();?>
+
+	<!-- Google Analytics -->
+	<?php print_analytics(); ?>
 
 </head>
 

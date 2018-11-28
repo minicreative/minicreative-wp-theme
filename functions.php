@@ -20,10 +20,39 @@ add_filter('site_transient_update_plugins', 'filter_plugin_updates');
 wp_deregister_script('jquery'); 
 wp_register_script('jquery', '', '', '', true);
 
-// Shorten excerpt length
-add_filter('excerpt_length', function($length) {
-    return 30;
-});
+// Add admin style
+function minicreative_admin_style() {
+	wp_enqueue_style('admin-styles', get_template_directory_uri().'/sass_compiler/server.php/admin.scss');
+}
+add_action('admin_enqueue_scripts', 'minicreative_admin_style');
+
+// Theme Header Functions ====================================================
+
+if (!function_exists('get_seo_title')) {
+	function get_seo_title() {
+		$title = "";
+		if (!is_front_page()) $title .= wp_title('-', false, 'right');
+		$title .= get_bloginfo('title');
+		if (is_front_page()) $title .= ": ".get_bloginfo('description');
+		return $title;
+	}
+}
+
+if (!function_exists('get_seo_description')) {
+	function get_seo_description() {
+		$post_seo_description = get_post_meta(get_the_ID(), 'seo_description', true);
+		if (strlen($post_seo_description))
+			return $post_seo_description;
+		return get_theme_mod('minicreative_seo_description');
+	}
+}
+
+if (!function_exists('print_analytics')) {
+	function print_analytics() {
+		if (get_theme_mod('minicreative_seo_ga'))
+			include("includes/analytics.php");
+	}
+}
 
 // Theme Display Functions ===================================================
 
@@ -44,6 +73,11 @@ if (!function_exists('print_page_header')) {
 	function print_page_header () {
 		if (!is_front_page()) include("includes/page-header.php");
 	}
+}
+
+// Get Page Header Style
+if (!function_exists('get_page_header_style')) {
+	function get_page_header_style () {}
 }
 
 // Print Below Contact
@@ -67,8 +101,19 @@ if (!function_exists('get_content_class')) {
 			return "blog";
 		}
 
+		if (get_post_type() == "post") {
+			return "post";
+		}
+
 		// Default (post slug)
 		return get_post_field('post_name', get_post());
+	}
+}
+
+// Get Content Style: returns style for content div based on current page
+if (!function_exists('get_content_style')) {
+	function get_content_style () {
+		return "";
 	}
 }
 
@@ -101,6 +146,16 @@ if (!function_exists('print_navigation')) {
 	}
 }
 
+// Print Post Title: displays post title
+if (!function_exists('print_post_title')) {
+	function print_post_title() {
+		if (get_post_type() == "post") {
+			echo get_the_title(get_option('page_for_posts'));
+		}
+		else wp_title('');
+	}
+}
+
 // Print Post List: displays list of post previews
 if (!function_exists('print_post_list')) {
 	function print_post_list () {
@@ -108,17 +163,20 @@ if (!function_exists('print_post_list')) {
 	}
 }
 
-// Initialize Bricks: initializes Bricks.js
-if (!function_exists('initialize_bricks')) {
-	function initialize_bricks () {
-		include("includes/bricks.php");
-	}
-}
-
 // Print Post Preview: displays post preview for post in loop
 if (!function_exists('print_post_preview')) {
 	function print_post_preview () {
 		include("includes/post-preview.php");
+	}
+}
+
+// Print Content: displays the content for the post
+if (!function_exists('print_content')) {
+	function print_content () {
+		if (get_post_type() == "post") {
+			include("includes/post-content.php");
+		}
+		else the_content();
 	}
 }
 
@@ -248,6 +306,59 @@ function minicreative_register_sidebars() {
 	));
 }
 add_action('widgets_init', 'minicreative_register_sidebars');
+
+// Setup Custom Fields
+if (function_exists('acf_add_local_field_group')) {
+	acf_add_local_field_group(array(
+		'key' => 'group_5bfee9bf025aa',
+		'title' => 'SEO',
+		'fields' => array(
+			array(
+				'key' => 'field_5bfee9c2698ee',
+				'label' => 'SEO Description',
+				'name' => 'seo_description',
+				'type' => 'textarea',
+				'instructions' => 'Enter 100-170 characters',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'maxlength' => '',
+				'rows' => '',
+				'new_lines' => '',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'post',
+				),
+			),
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'page',
+				),
+			),
+		),
+		'menu_order' => 20,
+		'position' => 'side',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => 1,
+		'description' => '',
+	));
+}
 
 // Setup Customizer
 include("customizer.php");

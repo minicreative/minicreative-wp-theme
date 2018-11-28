@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 
-<div class="content <?= get_content_class(); ?>">
+<div class="content <?= get_content_class(); ?>" style="<?= get_content_style(); ?>">
 	<div class="container">
 			
 	<?php
@@ -12,7 +12,7 @@
 			if (is_singular()) {
 				while (have_posts()) {
 					the_post();
-					the_content();
+					print_content();
 				}
 			} 
 			

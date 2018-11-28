@@ -1,21 +1,31 @@
 <?php
+
+	// Get posts layout from customizer
 	$posts_layout = get_theme_mod('minicreative_posts_layout');
-	$columns = !($posts_layout == "default");
-	$masonry = ($posts_layout == "masonry");
-	if ($columns) {
-		echo "<div class='columns stacked";
-		if ($masonry) echo " bricks";
-		echo "'>";
-	}
+
+	// Open columns
+	echo "<div class='columns";
+	if ($posts_layout == "masonry") echo " bricks";
+	else echo " stacked";
+	echo "'>";
+
+	// Loop posts
 	while (have_posts()) {
 		the_post();
-		if ($columns) echo "<div class='column third'>";
-			print_post_preview();
-		if ($columns) echo "</div>";
-	}
-	if ($columns) echo "</div>";
 
-	if ($posts_layout == "masonry") {
-		initialize_bricks();
+		// Open column
+		echo "<div class='column";
+		if ($posts_layout == "default") echo " full";
+		else echo " third";
+		echo "'>";
+
+		// Display post preview
+		print_post_preview();
+
+		// Close column
+		echo "</div>";
 	}
+
+	// Close columns
+	echo "</div>";
 ?>

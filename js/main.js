@@ -4,12 +4,24 @@ $(document).ready(function () {
 	setupMobileNav();
 	fixWordPressImageAttributes();
 	setColumnWidth();
+	setupLiveChatButton();
 })
+
+// On Stricter Page Load
+$(window).on('load', function () {
+	setupBricks();
+});
 
 // On Page Resize
 $(window).resize(function () {
 	setColumnWidth();
 });
+
+function setupLiveChatButton() {
+	$(".live-chat").on('click', function () {
+		if (Tawk_API) Tawk_API.toggle();
+	})
+}
 
 function setupMobileNav () {
 	let navigation = $(".navigation");
@@ -59,9 +71,23 @@ function setColumnWidth () {
 	
 			// Get and format margin for math
 			let margin = parseInt(column.css("marginRight").replace('px',''));
+
+			// Setup main/side cols
+			if (column.hasClass("main")) {
+				column.css("width", ((columns.width()-(margin))*0.69));
+				if ((((column.index()+1) % 2) == 0)) {
+					column.css("marginRight", 0);
+				}
+			}
+			else if (column.hasClass("side")) {
+				column.css("width", ((columns.width()-(margin))*0.3));
+				if ((((column.index()+1) % 2) == 0)) {
+					column.css("marginRight", 0);
+				}
+			}
 	
 			// Set columns to half width
-			if (column.hasClass("half") || (column.hasClass("third") && isTablet)) {
+			else if (column.hasClass("half") || (column.hasClass("third") && isTablet)) {
 				column.css("width", ((columns.width()-margin)/2)-3);
 				if ((((column.index()+1) % 2) == 0)) {
 					column.css("marginRight", 0);
@@ -86,4 +112,46 @@ function setColumnWidth () {
 				
 		})
 	})
+}
+
+let bricks;
+function setupBricks () {
+
+	// Only setup if Bricks included
+	if (!Bricks) return;
+
+	// Only setup if bricks area found
+	let hasBricks = false;
+	let firstColumn;
+	$(".columns").each(function () {
+		if ($(this).hasClass("bricks")) {
+			hasBricks = true;
+			firstColumn = $(this).find(".column").first();
+		}
+	})
+	if (!hasBricks) return;
+
+	// Setup sizing
+	let size = {
+		columns: 3,
+		gutter: parseInt(firstColumn.css("marginRight").replace('px', ''))
+	};
+	let windowWidth = $(window).width();
+	if (windowWidth < 760) {
+		size.columns = 1;
+		size.gutter = 20;
+	} else if (windowWidth < 1020) {
+		size.columns = 2;
+	}
+
+	// Setup bricks
+	bricks = Bricks({
+		container: '.columns',
+		packed: 'data-packed',
+		sizes: [
+			size
+		],
+		position:true,
+	});
+	bricks.pack();
 }
