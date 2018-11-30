@@ -128,24 +128,16 @@ function minicreative_customize_register ( $wp_customize ) {
 	)));
 
 	// Analytics & SEO
-	$wp_customize->add_section('minicreative_seo', array(
-		'title' => 'Analytics & SEO',
-		'description' => 'Add your Google Analytics ID and SEO meta information',
+	$wp_customize->add_section('minicreative_analytics', array(
+		'title' => 'Analytics',
+		'description' => 'Add your Google Analytics ID',
 		'priority' => 150
 	));
-	$wp_customize->add_setting('minicreative_seo_ga');
-	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_seo_ga', array(
+	$wp_customize->add_setting('minicreative_ga');
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_ga', array(
 		'label' => 'Google Analytics Tracking ID',
-		'section' => 'minicreative_seo',
-		'settings' => 'minicreative_seo_ga',
-	)));
-	$wp_customize->add_setting('minicreative_seo_description');
-	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_seo_description', array(
-		'label' => 'Default SEO Description',
-		'section' => 'minicreative_seo',
-		'settings' => 'minicreative_seo_description',
-		'type' => 'textarea',
-		'description' => '100-170 characters',
+		'section' => 'minicreative_analytics',
+		'settings' => 'minicreative_ga',
 	)));
 }
 

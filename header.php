@@ -3,9 +3,8 @@
 	
 <head>
 
-	<!-- Title (relies on Yoast) -->
-	<title><?= get_seo_title(); ?></title>
-	<meta name="description" content="<?= get_seo_description() ?>">
+	<!-- Title: this and other SEO variables handled by Yoast -->
+	<title><?php wp_title(''); ?></title>
 
 	<!-- META -->
 	<meta charset="UTF-8" />

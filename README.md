@@ -8,6 +8,7 @@ Built from scratch
 advanced-custom-fields-pro (for custom fields)
 better-search-replace (for site migration)
 contact-form-7 (for contact forms)
+wordpress-seo (Yoast for SEO)
 
 ### Sample WPCF7 Template
 ```

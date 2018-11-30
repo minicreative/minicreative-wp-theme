@@ -26,30 +26,47 @@ function minicreative_admin_style() {
 }
 add_action('admin_enqueue_scripts', 'minicreative_admin_style');
 
+// Sitemap Generator ======================================================
+
+add_action('publish_post', 'create_sitemap');
+add_action('publish_page', 'create_sitemap');
+function create_sitemap() {
+
+    $postsForSitemap = get_posts(array(
+        'numberposts' => -1,
+        'orderby' => 'modified',
+        'post_type'  => array( 'post', 'page' ),
+        'order'    => 'DESC'
+    ));
+
+    $sitemap = '<?xml version="1.0" encoding="UTF-8"?>';
+    $sitemap .= '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+
+    foreach( $postsForSitemap as $post ) {
+        setup_postdata( $post );
+
+        $postdate = explode( " ", $post->post_modified );
+
+        $sitemap .= '<url>'.
+          '<loc>' . get_permalink( $post->ID ) . '</loc>' .
+          '<lastmod>' . $postdate[0] . '</lastmod>' .
+          '<changefreq>monthly</changefreq>' .
+         '</url>';
+      }
+
+    $sitemap .= '</urlset>';
+
+    $fp = fopen( ABSPATH . 'sitemap.xml', 'w' );
+
+    fwrite( $fp, $sitemap );
+    fclose( $fp );
+}
+
 // Theme Header Functions ====================================================
-
-if (!function_exists('get_seo_title')) {
-	function get_seo_title() {
-		$title = "";
-		if (!is_front_page()) $title .= wp_title('-', false, 'right');
-		$title .= get_bloginfo('title');
-		if (is_front_page()) $title .= ": ".get_bloginfo('description');
-		return $title;
-	}
-}
-
-if (!function_exists('get_seo_description')) {
-	function get_seo_description() {
-		$post_seo_description = get_post_meta(get_the_ID(), 'seo_description', true);
-		if (strlen($post_seo_description))
-			return $post_seo_description;
-		return get_theme_mod('minicreative_seo_description');
-	}
-}
 
 if (!function_exists('print_analytics')) {
 	function print_analytics() {
-		if (get_theme_mod('minicreative_seo_ga'))
+		if (get_theme_mod('minicreative_ga'))
 			include("includes/analytics.php");
 	}
 }
@@ -306,59 +323,6 @@ function minicreative_register_sidebars() {
 	));
 }
 add_action('widgets_init', 'minicreative_register_sidebars');
-
-// Setup Custom Fields
-if (function_exists('acf_add_local_field_group')) {
-	acf_add_local_field_group(array(
-		'key' => 'group_5bfee9bf025aa',
-		'title' => 'SEO',
-		'fields' => array(
-			array(
-				'key' => 'field_5bfee9c2698ee',
-				'label' => 'SEO Description',
-				'name' => 'seo_description',
-				'type' => 'textarea',
-				'instructions' => 'Enter 100-170 characters',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'maxlength' => '',
-				'rows' => '',
-				'new_lines' => '',
-			),
-		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'post_type',
-					'operator' => '==',
-					'value' => 'post',
-				),
-			),
-			array(
-				array(
-					'param' => 'post_type',
-					'operator' => '==',
-					'value' => 'page',
-				),
-			),
-		),
-		'menu_order' => 20,
-		'position' => 'side',
-		'style' => 'default',
-		'label_placement' => 'top',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => 1,
-		'description' => '',
-	));
-}
 
 // Setup Customizer
 include("customizer.php");
