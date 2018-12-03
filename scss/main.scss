@@ -139,86 +139,85 @@ h3 {
 	}
 }
 
-// Site Layout Styles ================================================
+// Layout Styles ======================================================
+.navigation {
 
-header {
+	// Reset lists
+	ul {display:block; margin:0px; padding:0px;}
 
-	position:relative; z-index:300;
+	// For desktop computers
+	@include breakpoint(notTouch) {
+		position:relative; z-index:300; display:block; text-align:right;
 
-	.container {position:relative;}
-	
-	.logo {
-		float:left; position:relative; z-index:350;
-		img {height:100%;}
-	}
+		// Top-Level Links
+		> ul > li  {
+			display:inline-block; position:relative;
 
-	.navigation {
-
-		// Reset lists
-		ul {display:block; margin:0px; padding:0px;}
-
-		// For desktop computers
-		@include breakpoint(notTouch) {
-			position:relative; z-index:300; display:block; text-align:right;
-
-			// Top-Level Links
-			> ul > li  {
-				display:inline-block; position:relative;
-
-				// Show dropdown menus on hover
-				&:hover .sub-menu {display:block;}
-			}
-
-			// Dropdown Menus
-			ul.sub-menu {
-				display:none; // Hide dropdown menus until hover
-				position:absolute; top:100%; left:0px; width:100%; text-align:left;
-
-				// Dropdown Links
-				> li {display:block;}
-			}
+			// Show dropdown menus on hover
+			&:hover .sub-menu {display:block;}
 		}
 
-		// For mobile devices
-		@include breakpoint(m) {
-			display:none;
-			position:fixed; height:100vh; width:320px; left:0px; top:0px; z-index:500;
-			overflow:scroll;
-			background:white; @include box-shadow(0px 0px 5px rgba(0,0,0,0.4));
-			padding:20px 0px;
+		// Dropdown Menus
+		ul.sub-menu {
+			display:none; // Hide dropdown menus until hover
+			position:absolute; top:100%; left:0px; width:100%; text-align:left;
 
-			li {
-				padding:0px 20px; line-height:2.4; font-size:18px; border-top:1px solid #e5e5e5;
-				a {display:block;}
-			}
-			ul.sub-menu {
-				margin:0px -20px;
-				li {display:block; padding-left:40px;}
-			}
-
-			&.show {display:block; -webkit-animation:slideInLeft 300ms; animation:slideInLeft 300ms;}
-		}
-		@include breakpoint(s) {
-			width:280px;
+			// Dropdown Links
+			> li {display:block;}
 		}
 	}
 
-	// Mobile Navigation Components
-	#nav-underlay {
+	// For mobile devices
+	@include breakpoint(m) {
 		display:none;
-		position:fixed; width:100vh; height:100vh; top:0px; left:0px; z-index:400;
-		background:rgba(0,0,0,0.5);
-		&.show {display:block; -webkit-animation:fadeIn 300ms; animation:fadeIn 300ms;}
+		position:fixed; height:100vh; width:320px; left:0px; top:0px; z-index:500;
+		overflow:scroll;
+		background:white; @include box-shadow(0px 0px 5px rgba(0,0,0,0.4));
+		padding:20px 0px;
+
+		li {
+			padding:0px 20px; line-height:2.4; font-size:18px; border-top:1px solid #e5e5e5;
+			a {display:block;}
+		}
+		ul.sub-menu {
+			margin:0px -20px;
+			li {display:block; padding-left:40px;}
+		}
+
+		&.show {display:block; -webkit-animation:slideInLeft 300ms; animation:slideInLeft 300ms;}
 	}
-	#nav-toggle {
-		display:none;
-		position:absolute; right:0px; top:50%; margin-top:-16px; 
-		width:32px; height:32px; font-size:32px; line-height:1;
-		@include breakpoint(m) {display:block;}
-		@include breakpoint(xs) {right:20px;}
+	@include breakpoint(s) {
+		width:280px;
 	}
 }
 
+// Mobile Navigation Components
+#nav-underlay {
+	display:none;
+	position:fixed; width:100vh; height:100vh; top:0px; left:0px; z-index:400;
+	background:rgba(0,0,0,0.5);
+	&.show {display:block; -webkit-animation:fadeIn 300ms; animation:fadeIn 300ms;}
+}
+#nav-toggle {
+	display:none;
+	position:absolute; right:0px; top:50%; margin-top:-16px; 
+	width:32px; height:32px; font-size:32px; line-height:1;
+	@include breakpoint(m) {display:block;}
+	@include breakpoint(xs) {right:20px;}
+}
+
+// WordPress Specific Styles ============================================
+
+// Mobile navigation fix
+body.customize-support {
+	header .navigation {
+		@include breakpoint(m) {
+			padding-top:66px;
+		}
+	}
+}
+
+// Contentimage alignment
 .content {
 	img.alignleft {
 		float:left; margin-right:$padding; margin-bottom:20px;
@@ -231,12 +230,13 @@ header {
 	}
 }
 
-// WordPress Specific Styles ============================================
-body.customize-support {
-	header .navigation {
-		@include breakpoint(m) {
-			padding-top:66px;
-		}
+// ProcessWire Specific Styles ===========================================
+#processwire {
+	position:fixed; right:0px; bottom:20px; z-index:500;
+	font-family:Arial; text-align:right; font-size:16px; line-height:26px;
+	a {
+		color:white; text-decoration:none; padding:4px 6px; background:#333; border-right:3px solid #111;
+		&:hover {background:black;}
 	}
 }
 

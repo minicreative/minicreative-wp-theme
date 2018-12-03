@@ -18,11 +18,11 @@ include('pw_includes/functions.php');
 	<!--[if lt IE 9]><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
 
 	<!-- Base Libraries -->
-	<link rel="stylesheet" type="text/css" href="<?= $config->urls->templates; ?>plugins/fontawesome/all.min.css" />
+	<link rel="stylesheet" type="text/css" href="<?= $config->urls->templates; ?>plugins/fontawesome/css/all.min.css" />
 	<script src="<?= $config->urls->templates; ?>plugins/jquery.min.js" type="text/javascript"></script>
 
-	<!-- Base CSS -->
-	<link rel="stylesheet" type="text/css" href="<?= $config->urls->templates?>sass_compiler/server.php/main.scss" />
+	<!-- Site CSS (includes Base CSS) -->
+	<link rel="stylesheet" type="text/css" href="<?= $config->urls->templates?>sass_compiler/server.php/site.scss" />
 
 	<!-- Base JS -->
 	<script src="<?= $config->urls->templates; ?>js/main.js" type="text/javascript"></script>

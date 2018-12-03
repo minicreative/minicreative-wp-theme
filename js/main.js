@@ -111,7 +111,7 @@ let bricks;
 function setupBricks () {
 
 	// Only setup if Bricks included
-	if (!Bricks) return;
+	if (!window.Bricks) return;
 
 	// Only setup if bricks area found
 	let hasBricks = false;

@@ -23,6 +23,7 @@ Run `cp -a ./BASE/. /` where BASE is `wp_base` or `pw_base`
 
 ## ProcessWire notes
 
+Create a `scss/site.scss` with `@import "../scss/main.scss";` at the top.
 Add project-specific includes and files to `pw_site` directory.
 
 ## WordPress notes
