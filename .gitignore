@@ -11,6 +11,7 @@
 
 # Ignore specific directories
 node_modules
+pw_site
 
 # Mac OS X Ignores
 .DS_Store
