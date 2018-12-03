@@ -147,7 +147,6 @@ h3 {
 
 	// For desktop computers
 	@include breakpoint(notTouch) {
-		position:relative; z-index:300; display:block; text-align:right;
 
 		// Top-Level Links
 		> ul > li  {
