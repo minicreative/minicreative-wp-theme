@@ -1,5 +1,7 @@
 # Ignore all files in /
 *
+!*/
+node_modules
 
 # Include basic home files
 !.gitignore
