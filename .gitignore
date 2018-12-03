@@ -1,16 +1,2 @@
-# Ignore all files in / but include directories
+# Ignore all files (theme files are force included)
 *
-
-# Include basic / files
-!.gitignore
-!package.json
-!README.md
-!yarn-error.log
-!yarn.lock
-
-# Ignore specific directories
-node_modules
-pw_site
-
-# Mac OS X Ignores
-.DS_Store
