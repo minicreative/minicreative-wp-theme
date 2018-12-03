@@ -1,8 +1,20 @@
-# MiniCreative WordPress theme
+# MiniCreative Web Base
 
-Built from scratch
+WebBase is a collection of fundamental SCSS & JS for new MiniCreative development projects. It includes several third party libraries, including jQuery and php-sass. It is configured to work out of the box for new WordPress and ProcessWire projects.
 
-## Installation
+The following files / directories are specifically included:
+* js/main.js (base / reusable JavaScript functions)
+* scss/main.scss (base / reusable CSS styles)
+* plugins (3rd party libraries and plugins)
+* sass_compiler (PHP SASS compiler library)
+* wp_base and wp_includes (abstract WordPress files)
+* pw_base and pw_includes (abstract ProcessWire files)
+
+## ProcessWire
+
+## WordPress
+
+### Installation
 
 *Install the following plugins:*  
 advanced-custom-fields-pro (for custom fields)
