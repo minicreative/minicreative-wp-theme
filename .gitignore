@@ -1,6 +1,12 @@
 # Ignore all files in /
 *
 
+# Include basic home files
+!.gitignore
+!README.md
+!yarn-error.log
+!yarn.lock
+
 # Include primary folders
 !js/main.js
 !plugins/*
