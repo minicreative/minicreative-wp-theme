@@ -10,11 +10,15 @@ The following files / directories are specifically included:
 * `wp_base` and `wp_includes` (abstract WordPress files)
 * `pw_base` and `pw_includes` (abstract ProcessWire files)
 
-## ProcessWire
+## Setup
+Create `environment.json` in the root directory and include the following:
+* `cms` as either `wordpress` or `processwire`
+
+## ProcessWire notes
 
 Add project-specific includes and files to `pw_site` directory.
 
-## WordPress
+## WordPress notes
 
 ### Installation
 
