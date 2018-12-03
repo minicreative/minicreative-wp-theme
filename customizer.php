@@ -42,20 +42,6 @@ function minicreative_customize_register ( $wp_customize ) {
 		'settings' => 'minicreative_logo_alt',
 	)));
 
-	// Copyright =================================================================
-
-	$wp_customize->add_section('minicreative_copyright_section', array(
-		'title' => 'Copyright',
-		'description' => 'Provide a copyright statement for the footer',
-		'priority' => 200
-	));
-	$wp_customize->add_setting('minicreative_copyright');
-	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_copyright', array(
-		'label' => 'Copyright Message',
-		'section' => 'minicreative_copyright_section',
-		'settings' => 'minicreative_copyright',
-	)));
-
 	// Contact ================================================================
 
 	$wp_customize->add_section('minicreative_contact', array(
