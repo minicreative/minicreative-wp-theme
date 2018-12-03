@@ -1,23 +1,16 @@
-# Ignore all files in /
+# Ignore all files in / but include directories
 *
 !*/
-node_modules
 
-# Include basic home files
+# Include basic / files
 !.gitignore
+!package.json
 !README.md
 !yarn-error.log
 !yarn.lock
 
-# Include primary folders
-!*/js/main.js
-!*/plugins/*
-!*/sass_compiler/*
-!*/scss/main.scss
-!*/wp_base/*
-!*/wp_includes/*
-!*/pw_base/*
-!*/pw_includes/*
+# Ignore specific directories
+node_modules
 
 # Mac OS X Ignores
 .DS_Store
