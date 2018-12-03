@@ -3,14 +3,16 @@
 WebBase is a collection of fundamental SCSS & JS for new MiniCreative development projects. It includes several third party libraries, including jQuery and php-sass. It is configured to work out of the box for new WordPress and ProcessWire projects.
 
 The following files / directories are specifically included:
-* js/main.js (base / reusable JavaScript functions)
-* scss/main.scss (base / reusable CSS styles)
-* plugins (3rd party libraries and plugins)
-* sass_compiler (PHP SASS compiler library)
-* wp_base and wp_includes (abstract WordPress files)
-* pw_base and pw_includes (abstract ProcessWire files)
+* `js/main.js` (base / reusable JavaScript functions)
+* `scss/main.scss` (base / reusable CSS styles)
+* `plugins` (3rd party libraries and plugins)
+* `sass_compiler` (PHP SASS compiler library)
+* `wp_base` and `wp_includes` (abstract WordPress files)
+* `pw_base` and `pw_includes` (abstract ProcessWire files)
 
 ## ProcessWire
+
+Add project-specific includes and files to `pw_site` directory.
 
 ## WordPress
 
