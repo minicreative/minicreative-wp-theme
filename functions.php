@@ -306,7 +306,6 @@ add_filter('the_content', 'shortcode_empty_paragraph_fix');
 function minicreative_register_menus() {
 	register_nav_menus(array(
 		'header-menu' => 'Header Menu',
-		'footer-menu' => 'Footer Menu'
 	));
 }
 add_action('init', 'minicreative_register_menus');
