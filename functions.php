@@ -169,7 +169,7 @@ if (!function_exists('print_post_title')) {
 		if (get_post_type() == "post") {
 			echo get_the_title(get_option('page_for_posts'));
 		}
-		else wp_title('');
+		else echo get_the_title();
 	}
 }
 
