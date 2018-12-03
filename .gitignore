@@ -1,6 +1,5 @@
 # Ignore all files in / but include directories
 *
-!*/
 
 # Include basic / files
 !.gitignore
