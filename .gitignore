@@ -8,14 +8,14 @@
 !yarn.lock
 
 # Include primary folders
-!js/main.js
-!plugins/*
-!sass_compiler/*
-!scss/main.scss
-!wp_base/*
-!wp_includes/*
-!pw_base/*
-!pw_includes/*
+!*/js/main.js
+!*/plugins/*
+!*/sass_compiler/*
+!*/scss/main.scss
+!*/wp_base/*
+!*/wp_includes/*
+!*/pw_base/*
+!*/pw_includes/*
 
 # Mac OS X Ignores
 .DS_Store
