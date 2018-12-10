@@ -47,7 +47,7 @@ const Knot = (extended = {}) => {
 	}
 }
 
-const Bricks = (options = {}) => {
+window.Bricks = (options = {}) => {
   // privates
 
   let persist           // packing new elements, or all elements?
