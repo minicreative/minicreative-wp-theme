@@ -20,7 +20,7 @@ $padding_: 20px !default;
 
 // Resets & Basic Classes ===================================================
 
-html, body {margin:0px; padding:0px; min-height:100%;}
+html, body {margin:0px; padding:0px; width:100%; min-height:100%;}
 h1, h2, h3 {margin:0px; color:inherit; font-family:inherit;}
 div {box-sizing:border-box;}
 input, textarea {width:100%; box-sizing:border-box; font-size:16px;}
@@ -84,6 +84,10 @@ h3 {
 	margin-top:$padding;
 	@include breakpoint(m) {margin-top:$padding_;}
 }
+@mixin push {
+	margin-right:$padding;
+	@include breakpoint(m) {margin-right:$padding_;}
+}
 @mixin row_pad {
 	padding-top:$padding; 
 	@include breakpoint(m) {padding-top:$padding_;}
@@ -96,7 +100,8 @@ h3 {
 	display:block;
 	@include breakpoint(s) {margin-bottom:-$padding_;}
 	.column {
-		display:inline-block; vertical-align:top; margin-right:$padding;
+		display:inline-block; vertical-align:top; box-sizing:border-box;
+		margin-right:$padding;
 		@include breakpoint(m) {margin-right:$padding_;}
 		@include breakpoint(s) {margin-bottom:$padding_;}
 		&.full {width:100%; margin-right:0px;}

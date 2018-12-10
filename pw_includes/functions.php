@@ -23,14 +23,24 @@ function getPageSeoDescription($pages, $page) {
 	return $output;
 }
 
+// Get Header Image URL: returns URL for single header image
+function getHeaderImageURL($page, $settings) {
+	if ($page->header_image) {
+		return $page->header_image->url;
+	}
+	return $settings->header_image->url;
+}
+
 // Display Navigation: prints leveled navigation
 function displayNavigation($pages, $page, $includeHome) {
 
+	echo "<ul>";
+
 	// Print link to homepage if necessary
 	if ($includeHome) {
-		echo "<a href='{$pages->get("/")->url}'><div class='nav";
-    	if ($page == $pages->get("/")) echo " active";
-    	echo "'>{$pages->get('/')->title}</div></a>";
+		echo "<li";
+    	if ($page == $pages->get("/")) echo " class='active'";
+    	echo "><a href='{$pages->get("/")->url}'>{$pages->get('/')->title}</a></li>";
 	}
 
 	// Print visible children
@@ -39,31 +49,31 @@ function displayNavigation($pages, $page, $includeHome) {
 		// Determine if page has children
 		$createsub = $child->numChildren > 0;
 
-		// Open nav div
-		echo "<div class='nav";
-		if ($child == $page or ($child == $page->parent and $page->parent !== $pages->get('/'))) echo " active";
-		echo "'>";
+		// Open nav li
+		echo "<li";
+		if ($child == $page or ($child == $page->parent and $page->parent !== $pages->get('/'))) 
+			echo " class='active'";
+		echo ">";
 
 		// Create child link
 		echo "<a href='{$child->url}'>{$child->title}</a>";
 
 		// Create subnavigation
 		if ($createsub) {
-			echo "<div class='subnav'>";
-
-			// Create child link in subnav for mobile
-			echo "<a href='{$child->url}' class='mobileChildLink'>{$child->title}</a>";
+			echo "<ul class='sub-menu'>";
 
 			// Create links for children of child
 			foreach ($child->children as $sub) {
-				echo "<a href='{$sub->url}' class='sublink'>{$sub->title}</a>";
+				echo "<li><a href='{$sub->url}' class='sublink'>{$sub->title}</a></li>";
 			}
-			echo "</div>";
+			echo "</ul>";
 		}
 		
-		// Close nav div
-		echo "</div>";
+		// Close nav li
+		echo "</li>";
 	}
+
+	echo "</ul>";
 }
 
 // Display Social Networking: prints social networking links
@@ -75,21 +85,33 @@ function displaySocialNetworks ($settings) {
 
 // Display Contact Information: prints social networking links
 function displayContactInformation ($settings) {
+	if ($settings->contact->address) {
+		echo "<div class='contact-item'>";
+			echo "<div class='icon fas fa-map-marker-alt'></div>";
+			echo "<div class='title'>Address</div>";
+			echo "<div class='value'>{$settings->contact->address1}<br />{$settings->contact->address2}</div>";
+		echo "</div>";
+	}
 	if ($settings->contact->email) {
-		echo "<div class='title'>Email</div>";
-		echo "<div class='value'><a href='mailto:{$settings->contact->email}'>{$settings->contact->email}</a></div>";
+		echo "<div class='contact-item'>";
+			echo "<div class='icon fas fa-envelope'></div>";
+			echo "<div class='title'>Email</div>";
+			echo "<div class='value'><a href='mailto:{$settings->contact->email}'>{$settings->contact->email}</a></div>";
+		echo "</div>";
 	}
 	if ($settings->contact->phone) {
-		echo "<div class='title'>Phone</div>";
-		echo "<div class='value'>{$settings->contact->phone}</div>";
-	}
-	if ($settings->contact->address) {
-		echo "<div class='title'>Address</div>";
-		echo "<div class='value'>{$settings->contact->address1}<br />{$settings->contact->address2}</div>";
+		echo "<div class='contact-item'>";
+			echo "<div class='icon fas fa-phone'></div>";
+			echo "<div class='title'>Phone</div>";
+			echo "<div class='value'>{$settings->contact->phone}</div>";
+		echo "</div>";
 	}
 	if ($settings->contact->fax) {
-		echo "<div class='title'>Fax</div>";
-		echo "<div class='value'>{$settings->contact->fax}</div>";
+		echo "<div class='contact-item'>";
+			echo "<div class='icon fas fa-fax'></div>";
+			echo "<div class='title'>Fax</div>";
+			echo "<div class='value'>{$settings->contact->fax}</div>";
+		echo "</div>";
 	}
 }
 

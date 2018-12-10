@@ -31,7 +31,7 @@ include('pw_includes/functions.php');
 	<?php include("pw_site/head.php"); ?>
 
 </head>
-<body>
+<body class="<?= $page->template->name ?>">
 
 	<!-- Site Header -->
 	<?php include("pw_site/site-header.php"); ?>
