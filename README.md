@@ -23,9 +23,9 @@ Run `cp -a ./BASE/. .` where BASE is `wp_base` or `pw_base`
 
 ## ProcessWire notes
 
-Create a `scss/site.scss` with `@import "../scss/main.scss";` at the top.
-Add project-specific includes and files to `pw_site` directory.
-Add a `sendgridkey.php` file to `pw_includes` with `$sendgridkey = "SENDGRID_API_KEY";`
+Create a `scss/site.scss` with `@import "../scss/main.scss";` at the top.  
+Add project-specific includes and files to `pw_site` directory.  
+Add a `sendgridkey.php` file to `pw_includes` with `$sendgridkey = "SENDGRID_API_KEY";`  
 
 ## WordPress notes
 
