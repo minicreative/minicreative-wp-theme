@@ -144,6 +144,19 @@ h3 {
 	}
 }
 
+// ProcessWire Form
+.pw-form {
+	input, textarea {padding:8px 10px; font-family:inherit;}
+	.form-message {
+		position:fixed; top:0px; left:0px; width:100%; padding:8px 20px; text-align:center;
+		background:#333; color:white;
+	}
+	.form-error {
+		font-size:14px; color:red; line-height:1.2;
+	}
+	.honey {display:none;}
+}
+
 // Layout Styles ======================================================
 header .container {position:relative;}
 
