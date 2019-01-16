@@ -19,7 +19,7 @@ The following files / directories are specifically included:
 3. Run `gulp structure`
 
 ### Setup without Gulp
-Run `cp -a ./BASE/. /` where BASE is `wp_base` or `pw_base`
+Run `cp -a ./BASE/. .` where BASE is `wp_base` or `pw_base`
 
 ## ProcessWire notes
 

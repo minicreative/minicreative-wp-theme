@@ -10,6 +10,9 @@
 		<div id="nav-toggle" class="fas fa-bars"></div>
 		<?php print_navigation(); ?>
 
+		<!-- Extra Header Content -->
+		<?php print_extra_header_content(); ?>
+
 		<div class="clear"></div>
 	</div>
 </header>

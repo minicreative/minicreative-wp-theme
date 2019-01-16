@@ -112,6 +112,18 @@ function minicreative_customize_register ( $wp_customize ) {
 		'section' => 'minicreative_contact',
 		'settings' => 'minicreative_contact_linkedin'
 	)));
+	$wp_customize->add_setting('minicreative_contact_youtube');
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_contact_youtube', array(
+		'label' => 'YouTube Channel',
+		'section' => 'minicreative_contact',
+		'settings' => 'minicreative_contact_youtube'
+	)));
+	$wp_customize->add_setting('minicreative_contact_googleplus');
+	$wp_customize->add_control(new WP_Customize_Control($wp_customize, 'minicreative_contact_googleplus', array(
+		'label' => 'Google Plus Profile',
+		'section' => 'minicreative_contact',
+		'settings' => 'minicreative_contact_googleplus'
+	)));
 
 	// Analytics & SEO
 	$wp_customize->add_section('minicreative_analytics', array(

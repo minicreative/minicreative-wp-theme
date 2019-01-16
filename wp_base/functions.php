@@ -56,6 +56,11 @@ function create_sitemap() {
     fclose( $fp );
 }
 
+// Helper Functions ==========================================================
+function print_bg_image ($image) {
+	echo "background-image:url('".$image."');";
+}
+
 // Theme Header Functions ====================================================
 
 if (!function_exists('print_analytics')) {
@@ -79,7 +84,12 @@ if (!function_exists('print_site_header')) {
 	}
 }
 
-// Print After Header: includes content after <header>
+// Print Extra Header Content
+if (!function_exists('print_extra_header_content')) {
+	function print_extra_header_content () {}
+}
+
+// Print Page Header
 if (!function_exists('print_page_header')) {
 	function print_page_header () {
 		if (!is_front_page()) include("wp_includes/page-header.php");
@@ -107,11 +117,17 @@ if (!function_exists('print_site_footer')) {
 if (!function_exists('get_content_class')) {
 	function get_content_class () {
 
+		// Front page
+		if (is_front_page()) {
+			return "front-page";
+		}
+
 		// Posts page
 		if (is_home()) {
 			return "blog";
 		}
 
+		// Post page
 		if (get_post_type() == "post") {
 			return "post";
 		}
@@ -164,6 +180,21 @@ if (!function_exists('print_post_title')) {
 			echo get_the_title(get_option('page_for_posts'));
 		}
 		else echo get_the_title();
+	}
+}
+
+// Print Blog Categories
+if (!function_exists('print_blog_categories')) {
+	function print_blog_categories () {
+		$categories = get_categories();
+		echo "<a href='".get_permalink(get_option('page_for_posts'))."'";
+		if (is_home()) echo " class='active'"; 
+		echo ">All</a>";
+		foreach ($categories as $category) {
+			echo "<a href='".get_term_link($category)."'";
+			if (get_queried_object() == $category) echo " class='active'";
+			echo ">{$category->name}</a>";
+		}
 	}
 }
 
@@ -230,7 +261,9 @@ if (!function_exists('print_social_networks')) {
 			'facebook' => 'minicreative_contact_facebook',
 			'twitter' => 'minicreative_contact_twitter',
 			'instagram' => 'minicreative_contact_instagram',
-			'linkedin-in' => 'minicreative_contact_linkedin'
+			'linkedin-in' => 'minicreative_contact_linkedin',
+			'youtube' => 'minicreative_contact_youtube',
+			'google-plus-g' => 'minicreative_contact_googleplus'
 		);
 		echo "<div class='social'>";
 		foreach ($socials as $name => $customizekey) {
@@ -280,6 +313,30 @@ function register_button_shortcode() {
     add_shortcode('button', 'button_shortcode');
 }
 add_action('init', 'register_button_shortcode');
+
+// Contact Variables
+function register_contact_shortcodes() {
+
+	// Google Map
+	function google_map_shortcode($atts, $content) {
+        return "<div class='google-map'>".get_theme_mod('minicreative_map_embed')."</div>";
+    }
+	add_shortcode('google_map', 'google_map_shortcode');
+	
+	// Phone
+	function phone_shortcode($atts, $content) {
+		return "<span class='phone'>".get_theme_mod('minicreative_contact_phone')."</span>";
+	}
+	add_shortcode('phone', 'phone_shortcode');
+
+	// Address 
+	function address_shortcode($atts, $content) {
+		return "<span class='address'>".get_theme_mod('minicreative_contact_address1')."<br />"
+			.get_theme_mod('minicreative_contact_address2')."</span>";
+	}
+	add_shortcode('address', 'address_shortcode');
+}
+add_action('init', 'register_contact_shortcodes');
 
 // Shortcode BR/P fix
 function shortcode_empty_paragraph_fix($content) {
