@@ -1,6 +1,11 @@
 <?php
-// Function Includes
+
+// Base Function Includes
 include('pw_includes/functions.php');
+
+// Site Function Includes
+if (file_exists('pw_site/functions.php')) include('pw_site/functions.php');
+
 ?>
 
 <!DOCTYPE html>

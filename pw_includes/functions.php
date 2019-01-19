@@ -4,6 +4,13 @@
 $homepage = $pages->get('/');
 $settings = $pages->get('/settings/');
 
+// Not Empty: tests string variable existence
+function notEmpty($var) {
+	if ($var == null) return false;
+	if (strlen($var) < 1) return false;
+	return true;
+}
+
 // Get Page Title: returns title for page
 function getPageTitle($pages, $page) {
 	$output = "";
@@ -78,8 +85,8 @@ function displayNavigation($pages, $page, $includeHome) {
 
 // Display Social Networking: prints social networking links
 function displaySocialNetworks ($settings) {
-	foreach ($settings->site_social as $item) {
-		echo "<a href='{$item->link}'><i class='fab fa-{$item->icon}'></i></a>";
+	foreach ($settings->site_social as $network) {
+		echo "<a href='{$network->link}'><i class='fab fa-{$network->icon}'></i><span>{$network->title}</span></a>";
 	}
 }
 
