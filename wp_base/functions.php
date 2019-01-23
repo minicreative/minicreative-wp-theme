@@ -325,7 +325,7 @@ add_action('init', 'register_button_shortcode');
 // Alt Logo
 function register_alt_logo_shortcode() {
     function alt_logo_shortcode($atts, $content) {
-        return "<img src='".get_theme_mod('minicreative_logo_alt')."' />";
+        return "<img class='logo-alt' src='".get_theme_mod('minicreative_logo_alt')."' />";
     }
     add_shortcode('alternate-logo', 'alt_logo_shortcode');
 }
@@ -338,6 +338,7 @@ function register_contact_shortcodes() {
 	function google_map_shortcode($atts, $content) {
         return "<div class='google-map'>".get_theme_mod('minicreative_map_embed')."</div>";
     }
+	add_shortcode('google-map', 'google_map_shortcode');
 	add_shortcode('google_map', 'google_map_shortcode');
 	
 	// Phone
