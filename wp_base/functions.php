@@ -253,9 +253,9 @@ if (!function_exists('print_contact_info')) {
 	}
 }
 
-// Print Social Networks: displays FA icon based on Customizer links
-if (!function_exists('print_social_networks')) {
-	function print_social_networks () {
+// Get Social Networks: returns FA icon based on Customizer links
+if (!function_exists('get_social_networks')) {
+	function get_social_networks() {
 		$socials = array(
 			'facebook' => 'minicreative_contact_facebook',
 			'twitter' => 'minicreative_contact_twitter',
@@ -264,13 +264,22 @@ if (!function_exists('print_social_networks')) {
 			'youtube' => 'minicreative_contact_youtube',
 			'google-plus-g' => 'minicreative_contact_googleplus'
 		);
-		echo "<div class='social'>";
+		$html = "";
+		$html .= "<div class='social'>";
 		foreach ($socials as $name => $customizekey) {
 			if (get_theme_mod($customizekey)) {
-				echo "<a href='".get_theme_mod($customizekey)."'><span class='fab fa-{$name}'></span></a>";
+				$html .= "<a href='".get_theme_mod($customizekey)."'><span class='fab fa-{$name}'></span></a>";
 			}
 		}
-		echo "</div>";
+		$html .= "</div>";
+		return $html;
+	}
+}
+
+// Print Social Networks: displays FA icon based on Customizer links
+if (!function_exists('print_social_networks')) {
+	function print_social_networks() {
+		echo get_social_networks();
 	}
 }
 
@@ -313,6 +322,15 @@ function register_button_shortcode() {
 }
 add_action('init', 'register_button_shortcode');
 
+// Alt Logo
+function register_alt_logo_shortcode() {
+    function alt_logo_shortcode($atts, $content) {
+        return "<img src='".get_theme_mod('minicreative_logo_alt')."' />";
+    }
+    add_shortcode('alternate-logo', 'alt_logo_shortcode');
+}
+add_action('init', 'register_alt_logo_shortcode');
+
 // Contact Variables
 function register_contact_shortcodes() {
 
@@ -328,12 +346,37 @@ function register_contact_shortcodes() {
 	}
 	add_shortcode('phone', 'phone_shortcode');
 
+	// Email
+	function email_shortcode($atts, $content) {
+		return "<span class='email'><a href='mailto:".get_theme_mod('minicreative_contact_email')."'>"
+			.get_theme_mod('minicreative_contact_email')."</a></span>";
+	}
+	add_shortcode('email', 'email_shortcode');
+
 	// Address 
 	function address_shortcode($atts, $content) {
-		return "<span class='address'>".get_theme_mod('minicreative_contact_address1')."<br />"
-			.get_theme_mod('minicreative_contact_address2')."</span>";
+		return "<span class='address1'>".get_theme_mod('minicreative_contact_address1')."</span>"
+			."<span class='address2'>".get_theme_mod('minicreative_contact_address2')."</span>";
 	}
 	add_shortcode('address', 'address_shortcode');
+
+	// Address Line 1
+	function address1_shortcode($atts, $content) {
+		return "<span class='address1'>".get_theme_mod('minicreative_contact_address1')."</span>";
+	}
+	add_shortcode('address-line-1', 'address1_shortcode');
+
+	// Address Line 1
+	function address2_shortcode($atts, $content) {
+		return "<span class='address2'>".get_theme_mod('minicreative_contact_address2')."</span>";
+	}
+	add_shortcode('address-line-2', 'address2_shortcode');
+
+	// Social Networks
+	function social_networks_shortcode($atts, $content) {
+		return get_social_networks();
+	}
+	add_shortcode('social-networks', 'social_networks_shortcode');
 }
 add_action('init', 'register_contact_shortcodes');
 
