@@ -360,18 +360,5 @@ function minicreative_register_menus() {
 }
 add_action('init', 'minicreative_register_menus');
 
-// Register Sidebars: add support for sidebars & widgers
-function minicreative_register_sidebars() {
-
-	// Primary widget area
-	register_sidebar( array(
-		'name'          => 'Primary Sidebar',
-		'id'            => 'primary-sidebar',
-		'before_widget' => '<div>',
-		'after_widget'  => '</div>',
-	));
-}
-add_action('widgets_init', 'minicreative_register_sidebars');
-
 // Setup Customizer
 include("wp_includes/customizer.php");
