@@ -23,7 +23,6 @@ wp_register_script('jquery', '', '', '', true);
 // Sitemap Generator ======================================================
 
 add_action('publish_post', 'create_sitemap');
-add_action('publish_page', 'create_sitemap');
 function create_sitemap() {
 
     $postsForSitemap = get_posts(array(
