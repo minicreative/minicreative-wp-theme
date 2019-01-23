@@ -355,8 +355,8 @@ function register_contact_shortcodes() {
 
 	// Address 
 	function address_shortcode($atts, $content) {
-		return "<span class='address1'>".get_theme_mod('minicreative_contact_address1')."</span>"
-			."<span class='address2'>".get_theme_mod('minicreative_contact_address2')."</span>";
+		return "<span class='address'>".get_theme_mod('minicreative_contact_address1')."<br />"
+			.get_theme_mod('minicreative_contact_address2')."</span>";
 	}
 	add_shortcode('address', 'address_shortcode');
 
