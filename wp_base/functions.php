@@ -20,6 +20,12 @@ add_filter('site_transient_update_plugins', 'filter_plugin_updates');
 wp_deregister_script('jquery'); 
 wp_register_script('jquery', '', '', '', true);
 
+// Move Yoast to bottom
+function yoasttobottom() {
+	return 'low';
+}
+add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+
 // Sitemap Generator ======================================================
 
 add_action('publish_post', 'create_sitemap');
