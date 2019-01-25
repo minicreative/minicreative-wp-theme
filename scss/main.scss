@@ -116,6 +116,9 @@ h3 {
 		margin-bottom:-$padding; 
 		@include breakpoint(m) {margin-bottom:-$padding_;}
 	}
+	&.bricks {
+		@include breakpoint(s) {margin-bottom:0px !important;}
+	}
 }
 
 // Divider
