@@ -29,12 +29,13 @@ add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
 // Sitemap Generator ======================================================
 
 add_action('publish_post', 'create_sitemap');
+add_action('publish_page', 'create_sitemap');
 function create_sitemap() {
 
     $postsForSitemap = get_posts(array(
         'numberposts' => -1,
         'orderby' => 'modified',
-        'post_type'  => array( 'post', 'page' ),
+        'post_type'  => array( 'post', 'page', 'event' ),
         'order'    => 'DESC'
     ));
 
