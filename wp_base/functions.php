@@ -343,7 +343,7 @@ add_action('init', 'register_column_shortcode');
 // Button
 function register_button_shortcode() {
     function button_shortcode($atts, $content) {
-        return "<a href='{$atts['link']}' class='button'>{$content}</a>";
+        return "<a href='{$atts['link']}' class='button {$atts['class']}'>{$content}</a>";
     }
     add_shortcode('button', 'button_shortcode');
 }
