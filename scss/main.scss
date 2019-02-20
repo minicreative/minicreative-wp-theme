@@ -219,7 +219,7 @@ header .container {position:relative;}
 // Mobile Navigation Components
 #nav-underlay {
 	display:none;
-	position:fixed; width:100vh; height:100vh; top:0px; left:0px; z-index:400;
+	position:fixed; width:100vw; height:100vh; top:0px; left:0px; z-index:400;
 	background:rgba(0,0,0,0.5);
 	&.show {display:block; -webkit-animation:fadeIn 300ms; animation:fadeIn 300ms;}
 }
