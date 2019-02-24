@@ -20,6 +20,12 @@ add_filter('site_transient_update_plugins', 'filter_plugin_updates');
 wp_deregister_script('jquery'); 
 wp_register_script('jquery', '', '', '', true);
 
+// Move Yoast to bottom
+function yoasttobottom() {
+	return 'low';
+}
+add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+
 // Sitemap Generator ======================================================
 
 add_action('publish_post', 'create_sitemap');
@@ -29,7 +35,7 @@ function create_sitemap() {
     $postsForSitemap = get_posts(array(
         'numberposts' => -1,
         'orderby' => 'modified',
-        'post_type'  => array( 'post', 'page' ),
+        'post_type'  => array( 'post', 'page', 'event' ),
         'order'    => 'DESC'
     ));
 
@@ -59,6 +65,27 @@ function create_sitemap() {
 // Helper Functions ==========================================================
 function print_bg_image ($image) {
 	echo "background-image:url('".$image."');";
+}
+
+function close_tags($text) {
+    $patt_open    = "%((?<!</)(?<=<)[\s]*[^/!>\s]+(?=>|[\s]+[^>]*[^/]>)(?!/>))%";
+    $patt_close    = "%((?<=</)([^>]+)(?=>))%";
+    if (preg_match_all($patt_open,$text,$matches))
+    {
+        $m_open = $matches[1];
+        if(!empty($m_open))
+        {
+            preg_match_all($patt_close,$text,$matches2);
+            $m_close = $matches2[1];
+            if (count($m_open) > count($m_close))
+            {
+                $m_open = array_reverse($m_open);
+                foreach ($m_close as $tag) $c_tags[$tag]++;
+                foreach ($m_open as $k => $tag)    if ($c_tags[$tag]--<=0) $text.='</'.$tag.'>';
+            }
+        }
+    }
+    return $text;
 }
 
 // Theme Header Functions ====================================================
@@ -254,9 +281,9 @@ if (!function_exists('print_contact_info')) {
 	}
 }
 
-// Print Social Networks: displays FA icon based on Customizer links
-if (!function_exists('print_social_networks')) {
-	function print_social_networks () {
+// Get Social Networks: returns FA icon based on Customizer links
+if (!function_exists('get_social_networks')) {
+	function get_social_networks() {
 		$socials = array(
 			'facebook' => 'minicreative_contact_facebook',
 			'twitter' => 'minicreative_contact_twitter',
@@ -265,13 +292,22 @@ if (!function_exists('print_social_networks')) {
 			'youtube' => 'minicreative_contact_youtube',
 			'google-plus-g' => 'minicreative_contact_googleplus'
 		);
-		echo "<div class='social'>";
+		$html = "";
+		$html .= "<div class='social'>";
 		foreach ($socials as $name => $customizekey) {
 			if (get_theme_mod($customizekey)) {
-				echo "<a href='".get_theme_mod($customizekey)."'><span class='fab fa-{$name}'></span></a>";
+				$html .= "<a href='".get_theme_mod($customizekey)."'><span class='fab fa-{$name}'></span></a>";
 			}
 		}
-		echo "</div>";
+		$html .= "</div>";
+		return $html;
+	}
+}
+
+// Print Social Networks: displays FA icon based on Customizer links
+if (!function_exists('print_social_networks')) {
+	function print_social_networks() {
+		echo get_social_networks();
 	}
 }
 
@@ -308,11 +344,20 @@ add_action('init', 'register_column_shortcode');
 // Button
 function register_button_shortcode() {
     function button_shortcode($atts, $content) {
-        return "<a href='{$atts['link']}' class='button'>{$content}</a>";
+        return "<a href='{$atts['link']}' class='button {$atts['class']}'>{$content}</a>";
     }
     add_shortcode('button', 'button_shortcode');
 }
 add_action('init', 'register_button_shortcode');
+
+// Alt Logo
+function register_alt_logo_shortcode() {
+    function alt_logo_shortcode($atts, $content) {
+        return "<img class='logo-alt' src='".get_theme_mod('minicreative_logo_alt')."' />";
+    }
+    add_shortcode('alternate-logo', 'alt_logo_shortcode');
+}
+add_action('init', 'register_alt_logo_shortcode');
 
 // Contact Variables
 function register_contact_shortcodes() {
@@ -321,6 +366,7 @@ function register_contact_shortcodes() {
 	function google_map_shortcode($atts, $content) {
         return "<div class='google-map'>".get_theme_mod('minicreative_map_embed')."</div>";
     }
+	add_shortcode('google-map', 'google_map_shortcode');
 	add_shortcode('google_map', 'google_map_shortcode');
 	
 	// Phone
@@ -329,12 +375,37 @@ function register_contact_shortcodes() {
 	}
 	add_shortcode('phone', 'phone_shortcode');
 
+	// Email
+	function email_shortcode($atts, $content) {
+		return "<span class='email'><a href='mailto:".get_theme_mod('minicreative_contact_email')."'>"
+			.get_theme_mod('minicreative_contact_email')."</a></span>";
+	}
+	add_shortcode('email', 'email_shortcode');
+
 	// Address 
 	function address_shortcode($atts, $content) {
 		return "<span class='address'>".get_theme_mod('minicreative_contact_address1')."<br />"
 			.get_theme_mod('minicreative_contact_address2')."</span>";
 	}
 	add_shortcode('address', 'address_shortcode');
+
+	// Address Line 1
+	function address1_shortcode($atts, $content) {
+		return "<span class='address1'>".get_theme_mod('minicreative_contact_address1')."</span>";
+	}
+	add_shortcode('address-line-1', 'address1_shortcode');
+
+	// Address Line 1
+	function address2_shortcode($atts, $content) {
+		return "<span class='address2'>".get_theme_mod('minicreative_contact_address2')."</span>";
+	}
+	add_shortcode('address-line-2', 'address2_shortcode');
+
+	// Social Networks
+	function social_networks_shortcode($atts, $content) {
+		return get_social_networks();
+	}
+	add_shortcode('social-networks', 'social_networks_shortcode');
 }
 add_action('init', 'register_contact_shortcodes');
 
@@ -360,19 +431,6 @@ function minicreative_register_menus() {
 	));
 }
 add_action('init', 'minicreative_register_menus');
-
-// Register Sidebars: add support for sidebars & widgers
-function minicreative_register_sidebars() {
-
-	// Primary widget area
-	register_sidebar( array(
-		'name'          => 'Primary Sidebar',
-		'id'            => 'primary-sidebar',
-		'before_widget' => '<div>',
-		'after_widget'  => '</div>',
-	));
-}
-add_action('widgets_init', 'minicreative_register_sidebars');
 
 // Setup Customizer
 include("wp_includes/customizer.php");

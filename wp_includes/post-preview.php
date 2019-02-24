@@ -11,14 +11,19 @@
 		<div class="meta">Posted <?php the_time('F jS, Y'); ?></div>
 		<div class="excerpt"><?php the_excerpt(); ?></div>
 		<a href="<?php the_permalink(); ?>" class="read-more">Read More >></a>
-		<div class="post-categories">
-			<?php
-				$categories = wp_get_post_categories(get_the_ID());
+		<?php
+			$categories = wp_get_post_categories(get_the_ID());
+			if (count($categories)) {
+				echo "<div class='post-categories'>Posted in ";
+				$index = 0;
 				foreach($categories as $cat) {
+					$index++;
 					$category = get_category($cat);
-				echo '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a>';
+					echo '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a>';
+					if ($index < count($categories)) echo ", ";
 				}
-			?>
-		</div>
+				echo "</div>";
+			}
+		?>
 	</div>
 </div>

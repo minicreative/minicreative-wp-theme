@@ -124,9 +124,18 @@ function setupBricks () {
 	})
 	if (!hasBricks) return;
 
+	// Detect column width
+	let numColumns = 1;
+	if (firstColumn.hasClass('fourth'))
+		numColumns = 4;
+	else if (firstColumn.hasClass('third') || firstColumn.hasClass('tabletThird'))
+		numColumns = 3;
+	else if (firstColumn.hasClass('half'))
+		numColumns = 2;
+
 	// Setup sizing
 	let size = {
-		columns: 3,
+		columns: numColumns,
 		gutter: parseInt(firstColumn.css("marginRight").replace('px', ''))
 	};
 	let windowWidth = $(window).width();
