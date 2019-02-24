@@ -103,7 +103,7 @@ if($input->post->submit) {
 	<form action="./" method="post">
 
 		<?php // The following field is a hidden honeypot for spam detection purposes ?>
-		<input name="email_2" class="honey" type="input" autocomplete="off" />
+		<input name="email_2" class="honey" type="email" autocomplete="off" />
 
 		<div class="columns stacked">
 
