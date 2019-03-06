@@ -4,7 +4,7 @@
 <head>
 
 	<!-- Title: this and other SEO variables handled by Yoast -->
-	<title><?php wp_title(''); ?></title>
+	<title><?php print_html_title() ?></title>
 
 	<!-- META -->
 	<meta charset="UTF-8" />

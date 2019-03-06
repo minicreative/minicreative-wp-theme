@@ -104,6 +104,13 @@ if (!function_exists('print_head_includes')) {
 	function print_head_includes () {}
 }
 
+// Print HTML Title: allows override by Yoast by default
+if (!function_exists('print_html_title')) {
+	function print_html_title () {
+		wp_title('');
+	}
+}
+
 // Print Site Header
 if (!function_exists('print_site_header')) {
 	function print_site_header () {
