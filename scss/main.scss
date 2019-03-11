@@ -38,6 +38,9 @@ a {color:inherit; text-decoration:none;}
 	@else if $point == m {
 		@media screen and (max-width: 1020px)  {@content;}
 	}
+	@else if $point == m-only {
+		@media screen and (max-width: 1020px) and (min-width:760px) {@content;}
+	}
 	@else if $point == s {
 		@media screen and (max-width: 760px)  {@content;}
 	}
@@ -91,6 +94,10 @@ h3 {
 @mixin row_pad {
 	padding-top:$padding; 
 	@include breakpoint(m) {padding-top:$padding_;}
+}
+@mixin vertical_pad {
+	padding-top:$padding; padding-bottom:$padding;
+	@include breakpoint(m) {padding-top:$padding_; padding-bottom:$padding_;}
 }
 
 // Reusable Element Styles ===================================================
@@ -242,8 +249,10 @@ body.customize-support {
 	}
 }
 
-// Contentimage alignment
+// Content styles
 .content {
+
+	// Legacy image alignment
 	img.alignleft {
 		float:left; margin-right:$padding; margin-bottom:20px;
 	}
@@ -252,6 +261,131 @@ body.customize-support {
 	}
 	img.alignleft, img.alignright {
 		@include breakpoint(s) {float:none; width:100%; margin:0px 0px 20px;}
+	}
+
+	// Gutenberg Styles (March 2019)
+	&.gutenberg {
+		
+		// Spacing parameters
+		.container {
+			width:100%; padding:0px $padding;
+			@include breakpoint(m) {padding:0px $padding_;}
+
+			> * {
+				max-width:700px; margin:$padding auto;
+				&:first-child {margin-top:0px;}
+				&:last-child {margin-bottom:0px;}
+
+				@include breakpoint(m) {
+					max-width:600px; margin:$padding_ auto;
+				}
+				@include breakpoint(s) {
+					max-width:360px;
+				}
+
+				// Types of spacing
+				&.alignwide {
+					max-width:1080px;
+					@include breakpoint(l) {max-width:960px;}
+					@include breakpoint(m) {max-width:720px;}
+					@include breakpoint(s) {max-width:360px;}
+				}
+				&.alignfull {
+					max-width:10000px; margin-left:-$padding; margin-right:-$padding;
+					@include breakpoint(m) {margin-left:-$padding_; margin-right:-$padding_;}
+				}
+			}
+		}
+
+		// Images
+		figure {
+			margin-block-start:0px; margin-block-end:0px;
+			figcaption {margin-top:10px; margin-bottom:5px;}
+
+			// Types of images
+			&.aligncenter {
+				margin-top:$padding; margin-bottom:$padding;
+			}
+			&.alignleft {
+				margin-right:20px;
+				@include breakpoint(s) {margin-right:0px;}
+			}
+			&.alignright {
+				margin-left:20px;
+				@include breakpoint(s) {margin-left:0px;}
+			}
+			&.alignleft, &.alignright {
+				@include breakpoint(s) {
+					display:block; width:100%; margin-bottom:$padding_;
+					img {width:100%;}
+					figcaption {display:block;}
+				}
+			}
+		}
+
+		// Columns
+		.wp-block-columns {
+
+			// Override broken WordPress 5.1 styling
+			flex-wrap:nowrap !important;
+			@include breakpoint(s) {
+				flex-wrap:wrap !important; margin-bottom:-$padding_;
+			}
+
+			// Four column handling
+			&.has-4-columns {
+				@include breakpoint(m-only) {
+					flex-wrap:wrap !important;
+					.wp-block-column {
+						width:50%; margin:$padding_ 0px; padding:0px #{$padding / 2};
+						&:nth-child(odd) {padding-left:0px;}
+						&:nth-child(even) {padding-right:0px;}
+					}
+				}
+			}
+
+			// Columns styling
+			.wp-block-column {
+
+				// Fix margins
+				margin:0px #{$padding / 2};
+				&:first-child {margin-left:0px;}
+				&:last-child {margin-right:0px;}
+
+				// Fix paragraph spacing
+				p:first-of-type {margin-top:0px;}
+				p:last-of-type {margin-bottom:0px;}
+
+				// Mobile column styling
+				@include breakpoint(s) {
+					flex-basis:100%; margin:0px; margin-bottom:$padding_;
+				}
+			}
+
+			// Full width images in columns
+			figure {
+				width:100%;
+				img {width:100%;}
+			}
+		}
+
+		// Quotes
+		.wp-block-quote {
+			position:relative; box-sizing:border-box; padding:0px 50px; text-align:center; 
+			@include breakpoint (m) {padding:0px 30px;}
+			font-size:18px; font-style:italic; 
+			&:before {
+				content:'\201C'; position:absolute; top:-6px; left:0px; line-height:1;
+				font-family:'Georgia', serif; font-size:96px; font-style:normal;
+				color:#eee;
+			}
+			cite {font-size:16px; font-style:normal; font-weight:bold;}
+		}
+
+		// Seperators
+		.wp-block-separator {
+			border:0px; border-bottom:1px solid #ddd;
+		}
 	}
 }
 
