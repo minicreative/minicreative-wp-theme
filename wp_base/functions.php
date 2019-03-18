@@ -358,6 +358,55 @@ if (!function_exists('print_social_networks')) {
 	}
 }
 
+// Display Functions ========================================================
+
+// Print Recent Posts: prints a number of recent posts
+function print_recent_posts($numPosts) {
+	$recent_posts = new WP_Query(array(
+		'post_type' => 'post',
+		'order' => 'DESC',
+		'posts_per_page' => $numPosts
+	));
+	
+	// Do query & loop
+	while ($recent_posts->have_posts()) {
+		$recent_posts->the_post();
+		print_post_preview();
+	}
+	
+	// Reset the_post
+	wp_reset_postdata();
+}
+
+// Print Upcoming Events: prints a number of upcoming events
+function print_upcoming_evets($numPosts) {
+	$upcoming_events = new WP_Query(array(
+		'post_type' => 'event',
+		'order' => 'DESC',
+		'meta_key' => 'start_date',
+		'orderby' => 'meta_value',
+		'order' => 'ASC',
+		'posts_per_page' => $numPosts,
+		'meta_query' => array(
+			array (
+				'key' => 'end_date',
+				'type' => 'DATE',
+				'value' => date(Ymd),
+				'compare' => '>='
+			)
+		)
+	));
+
+	// Do query & loop
+	while ($upcoming_events->have_posts()) {
+		$upcoming_events->the_post();
+		print_post_preview();
+	}
+
+	// Reset the_post
+	wp_reset_postdata();
+}
+
 // Shortcodes ===============================================================
 
 // Divider
