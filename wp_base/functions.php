@@ -188,28 +188,9 @@ if (!function_exists('print_site_footer')) {
 	}
 }
 
-// Basic Content Classes
-function basic_content_classes () {
-	// Setup array for classes
-	$classes = [];
-
-	// Front page
-	if (is_front_page()) array_push($classes, "front-page");
-
-	// Posts page
-	if (is_home()) array_push($classes, "blog");
-
-	// Post type
-	array_push($classes, get_post_type());
-
-	return implode(" ", $classes);
-}
-
 // Get Content Class: returns class for content div based on current page
 if (!function_exists('get_content_class')) {
-	function get_content_class () {
-		return basic_content_classes();
-	}
+	function get_content_class () {}
 }
 
 // Get Content Style: returns style for content div based on current page
