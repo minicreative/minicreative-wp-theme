@@ -11,7 +11,7 @@ The following files / directories are specifically included:
 * `pw_base` and `pw_includes` (abstract ProcessWire files)
 
 ## Setup
-Run `./theme-setup.sh {CMS}` where {CMS} is `wp` or `pw`
+Run `./setup-theme.sh {CMS}` where {CMS} is `wp` or `pw`
 
 ## ProcessWire notes
 
