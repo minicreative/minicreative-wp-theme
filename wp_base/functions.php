@@ -189,7 +189,7 @@ if (!function_exists('print_site_footer')) {
 }
 
 // Basic Content Classes
-function basic_contact_classes () {
+function basic_content_classes () {
 	// Setup array for classes
 	$classes = [];
 
