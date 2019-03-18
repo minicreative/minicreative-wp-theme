@@ -73,7 +73,7 @@ add_action('save_post', 'create_sitemap');
 
 // Helper Functions ==========================================================
 function get_bg_image ($image) {
-	return "background-image:url('".$image."');"
+	return "background-image:url('".$image."');";
 }
 function print_bg_image ($image) {
 	echo get_bg_image($image);
