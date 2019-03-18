@@ -30,6 +30,11 @@ function yoasttobottom() {
 }
 add_filter('wpseo_metabox_prio', 'yoasttobottom');
 
+// Set excerpt length to 30
+add_filter('excerpt_length', function($length) {
+    return 30;
+});
+
 // Sitemap Generator ======================================================
 function create_sitemap() {
 
@@ -67,8 +72,11 @@ function create_sitemap() {
 add_action('save_post', 'create_sitemap');
 
 // Helper Functions ==========================================================
+function get_bg_image ($image) {
+	return "background-image:url('".$image."');"
+}
 function print_bg_image ($image) {
-	echo "background-image:url('".$image."');";
+	echo get_bg_image($image);
 }
 
 function close_tags($text) {
@@ -180,26 +188,27 @@ if (!function_exists('print_site_footer')) {
 	}
 }
 
+// Basic Content Classes
+function basic_contact_classes () {
+	// Setup array for classes
+	$classes = [];
+
+	// Front page
+	if (is_front_page()) array_push($classes, "front-page");
+
+	// Posts page
+	if (is_home()) array_push($classes, "blog");
+
+	// Post type
+	array_push($classes, get_post_type());
+
+	return implode(" ", $classes);
+}
+
 // Get Content Class: returns class for content div based on current page
 if (!function_exists('get_content_class')) {
 	function get_content_class () {
-
-		// Setup array for classes
-		$classes = [];
-
-		// Front page
-		if (is_front_page()) array_push($classes, "front-page");
-
-		// Posts page
-		if (is_home()) array_push($classes, "blog");
-
-		// List page
-		if (!is_singular()) array_push($classes, "post-list");
-
-		// Post type
-		array_push($classes, get_post_type());
-
-		return implode(" ", $classes);
+		return basic_content_classes();
 	}
 }
 
