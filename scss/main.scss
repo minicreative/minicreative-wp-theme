@@ -107,6 +107,10 @@ h3 {
 	padding-top:$padding; 
 	@include breakpoint(m) {padding-top:$padding_;}
 }
+@mixin content_pad {
+	padding-bottom:$padding;
+	@include breakpoint(m) {padding-bottom:$padding_;}
+}
 @mixin vertical_pad {
 	padding-top:$padding; padding-bottom:$padding;
 	@include breakpoint(m) {padding-top:$padding_; padding-bottom:$padding_;}
@@ -117,7 +121,7 @@ h3 {
 // Columns: further styled by jQuery in main.js
 .columns {
 	display:block;
-	@include breakpoint(s) {margin-bottom:-$padding_;}
+	@include breakpoint(s) {margin-bottom:-$padding_; padding-bottom:1px;}
 	.column {
 		display:inline-block; vertical-align:top; box-sizing:border-box;
 		margin-right:$padding;
