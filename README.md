@@ -11,15 +11,7 @@ The following files / directories are specifically included:
 * `pw_base` and `pw_includes` (abstract ProcessWire files)
 
 ## Setup
-
-### Setup with Gulp
-1. Install yarn and yarn packages.  
-2. Create `environment.json` in the root directory and include the following:
-* `cms` as either `wordpress` or `processwire`
-3. Run `gulp structure`
-
-### Setup without Gulp
-Run `cp -a ./BASE/. .` where BASE is `wp_base` or `pw_base`
+Run `./setup-theme.sh {CMS}` where {CMS} is `wp` or `pw`
 
 ## ProcessWire notes
 

@@ -1,29 +1,38 @@
 <div class="post-preview">
+
+	<!-- Post Thumbnail -->
 	<?php if (has_post_thumbnail()) {
-		echo "<a href='";
-		the_permalink(); 
-		echo "'>";
-		the_post_thumbnail();
-		echo "</a>";
+
+		// Print thumbnail
+		echo "<a href='".get_the_permalink()."'>"
+			.get_the_post_thumbnail(null, "full", ['class' => 'featured-image'])
+			."</a>";
 	} ?>
-	<div class='info'>
-		<h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-		<div class="meta">Posted <?php the_time('F jS, Y'); ?></div>
-		<div class="excerpt"><?php the_excerpt(); ?></div>
-		<a href="<?php the_permalink(); ?>" class="read-more">Read More >></a>
-		<?php
-			$categories = wp_get_post_categories(get_the_ID());
-			if (count($categories)) {
-				echo "<div class='post-categories'>Posted in ";
-				$index = 0;
-				foreach($categories as $cat) {
-					$index++;
-					$category = get_category($cat);
-					echo '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a>';
-					if ($index < count($categories)) echo ", ";
-				}
-				echo "</div>";
-			}
+
+	<div class="info">
+
+		<!-- Title -->
+		<?php echo "<a href='".get_the_permalink()."'><h2>".get_the_title()."</h2></a>"; ?>
+			
+		<!-- Date Display -->
+		<div class="meta">
+		<?php 
+			if (get_post_type() == "post")
+				echo "Posted on ".get_the_date("F j, Y");
+			else print_event_date(get_the_ID());
 		?>
+		</div>
+
+		<!-- Excerpt Display -->
+		<div class="excerpt"><?php the_excerpt(); ?></div>
+
+		<!-- Read More -->
+		<a href="<?php the_permalink(); ?>" class="read-more">Read More >></a>
+
+		<!-- Post Categories -->
+		<?php print_post_categories(); ?>
+		
 	</div>
+
+	<div class="clear"></div>
 </div>

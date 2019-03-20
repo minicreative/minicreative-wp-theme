@@ -6,10 +6,14 @@ Parent Theme functions
 */
 
 // Basics ====================================================================
+
+// Support post thumbnails
 add_theme_support('post-thumbnails');
+
+// Don't style galleries
 add_filter('use_default_gallery_style', '__return_false'); 
 
-// Supress ACF Pro Update Notifications
+// Supress ACF Pro update notifications
 function filter_plugin_updates( $value ) {
     unset($value->response['advanced-custom-fields-pro/acf.php']);
     return $value;
@@ -24,12 +28,14 @@ wp_register_script('jquery', '', '', '', true);
 function yoasttobottom() {
 	return 'low';
 }
-add_filter( 'wpseo_metabox_prio', 'yoasttobottom');
+add_filter('wpseo_metabox_prio', 'yoasttobottom');
+
+// Set excerpt length to 30
+add_filter('excerpt_length', function($length) {
+    return 30;
+});
 
 // Sitemap Generator ======================================================
-
-add_action('publish_post', 'create_sitemap');
-add_action('publish_page', 'create_sitemap');
 function create_sitemap() {
 
     $postsForSitemap = get_posts(array(
@@ -62,9 +68,15 @@ function create_sitemap() {
     fclose( $fp );
 }
 
+// Generate sitemap whenever a post is saved
+add_action('save_post', 'create_sitemap');
+
 // Helper Functions ==========================================================
+function get_bg_image ($image) {
+	return "background-image:url('".$image."');";
+}
 function print_bg_image ($image) {
-	echo "background-image:url('".$image."');";
+	echo get_bg_image($image);
 }
 
 function close_tags($text) {
@@ -87,9 +99,16 @@ function close_tags($text) {
     }
     return $text;
 }
+function print_event_date($id) {
+	$start_date = new DateTime(get_field('start_date', $id));
+	$end_date = new DateTime(get_field('end_date', $id));
+	if ($start_date == $end_date)
+		$date_output = $start_date->format('F j, Y');
+	else $date_output = $start_date->format('F j')." - ".$end_date->format('F j, Y');
+	echo $date_output;
+}
 
 // Theme Header Functions ====================================================
-
 if (!function_exists('print_analytics')) {
 	function print_analytics() {
 		if (get_theme_mod('minicreative_ga'))
@@ -107,7 +126,19 @@ if (!function_exists('print_head_includes')) {
 // Print HTML Title: allows override by Yoast by default
 if (!function_exists('print_html_title')) {
 	function print_html_title () {
-		wp_title('');
+
+		// Detect if Yoast is installed, hand off title functionality to WordPress
+		if (in_array('wordpress-seo/wp-seo.php', apply_filters('active_plugins', get_option('active_plugins')))){ 
+			wp_title('');
+		}
+		
+		// Otherwise, use custom settings
+		else {
+			if (is_front_page()) {
+				echo get_bloginfo('name').": ".get_bloginfo('description');
+			}
+			else echo get_the_title()." - ".get_bloginfo('name');
+		}
 	}
 }
 
@@ -130,12 +161,22 @@ if (!function_exists('print_page_header')) {
 	}
 }
 
+// Print Post Title: displays post title
+if (!function_exists('print_post_title')) {
+	function print_post_title() {
+		if (get_post_type() == "post") {
+			echo get_the_title(get_option('page_for_posts'));
+		}
+		else echo get_the_title();
+	}
+}
+
 // Get Page Header Style
 if (!function_exists('get_page_header_style')) {
 	function get_page_header_style () {}
 }
 
-// Print Below Contact
+// Print Below Content
 if (!function_exists('print_below_content')) {
 	function print_below_content () {}
 }
@@ -149,26 +190,7 @@ if (!function_exists('print_site_footer')) {
 
 // Get Content Class: returns class for content div based on current page
 if (!function_exists('get_content_class')) {
-	function get_content_class () {
-
-		// Front page
-		if (is_front_page()) {
-			return "front-page";
-		}
-
-		// Posts page
-		if (is_home()) {
-			return "blog";
-		}
-
-		// Post page
-		if (get_post_type() == "post") {
-			return "post";
-		}
-
-		// Default (post slug)
-		return get_post_field('post_name', get_post());
-	}
+	function get_content_class () {}
 }
 
 // Get Content Style: returns style for content div based on current page
@@ -207,23 +229,19 @@ if (!function_exists('print_navigation')) {
 	}
 }
 
-// Print Post Title: displays post title
-if (!function_exists('print_post_title')) {
-	function print_post_title() {
-		if (get_post_type() == "post") {
-			echo get_the_title(get_option('page_for_posts'));
-		}
-		else echo get_the_title();
-	}
-}
-
 // Print Blog Categories
 if (!function_exists('print_blog_categories')) {
 	function print_blog_categories () {
+
+		// Get list of categories
 		$categories = get_categories();
+
+		// Print link to all posts
 		echo "<a href='".get_permalink(get_option('page_for_posts'))."'";
 		if (is_home()) echo " class='active'"; 
 		echo ">All</a>";
+
+		// Print individual categories
 		foreach ($categories as $category) {
 			echo "<a href='".get_term_link($category)."'";
 			if (get_queried_object() == $category) echo " class='active'";
@@ -243,6 +261,28 @@ if (!function_exists('print_post_list')) {
 if (!function_exists('print_post_preview')) {
 	function print_post_preview () {
 		include("wp_includes/post-preview.php");
+	}
+}
+
+// Print Post Categories: displays a list of categories for a given post
+if (!function_exists('print_post_categories')) {
+	function print_post_categories () {
+
+		// Get list of categories for post
+		$categories = wp_get_post_categories(get_the_ID());
+
+		// Print list of categories
+		if (count($categories)) {
+			echo "<div class='post-categories'>Posted in ";
+			$index = 0;
+			foreach($categories as $cat) {
+				$index++;
+				$category = get_category($cat);
+				echo '<a href="' . get_category_link($category->term_id) . '">' . $category->name . '</a>';
+				if ($index < count($categories)) echo ", ";
+			}
+			echo "</div>";
+		}
 	}
 }
 
@@ -316,6 +356,55 @@ if (!function_exists('print_social_networks')) {
 	function print_social_networks() {
 		echo get_social_networks();
 	}
+}
+
+// Display Functions ========================================================
+
+// Print Recent Posts: prints a number of recent posts
+function print_recent_posts($numPosts) {
+	$recent_posts = new WP_Query(array(
+		'post_type' => 'post',
+		'order' => 'DESC',
+		'posts_per_page' => $numPosts
+	));
+	
+	// Do query & loop
+	while ($recent_posts->have_posts()) {
+		$recent_posts->the_post();
+		print_post_preview();
+	}
+	
+	// Reset the_post
+	wp_reset_postdata();
+}
+
+// Print Upcoming Events: prints a number of upcoming events
+function print_upcoming_evets($numPosts) {
+	$upcoming_events = new WP_Query(array(
+		'post_type' => 'event',
+		'order' => 'DESC',
+		'meta_key' => 'start_date',
+		'orderby' => 'meta_value',
+		'order' => 'ASC',
+		'posts_per_page' => $numPosts,
+		'meta_query' => array(
+			array (
+				'key' => 'end_date',
+				'type' => 'DATE',
+				'value' => date(Ymd),
+				'compare' => '>='
+			)
+		)
+	));
+
+	// Do query & loop
+	while ($upcoming_events->have_posts()) {
+		$upcoming_events->the_post();
+		print_post_preview();
+	}
+
+	// Reset the_post
+	wp_reset_postdata();
 }
 
 // Shortcodes ===============================================================
