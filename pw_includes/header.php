@@ -36,7 +36,7 @@ if (file_exists('pw_site/functions.php')) include('pw_site/functions.php');
 	<?php include("pw_site/head.php"); ?>
 
 </head>
-<body class="<?= $page->template->name ?>">
+<body>
 
 	<!-- Site Header -->
 	<?php include("pw_site/site-header.php"); ?>
