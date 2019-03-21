@@ -13,6 +13,7 @@ function notEmpty($var) {
 	return true;
 }
 
+<<<<<<< HEAD
 function getExcerpt($content, $length) {
 	if (!$length) $length = 30;
 	$text = strip_tags($content);
@@ -26,6 +27,15 @@ function getExcerpt($content, $length) {
 
 // Template Functions ============================================
 
+=======
+// Get Body Class: adds class to body tag
+if (!function_exists('getBodyClass')) {
+	function getBodyClass ($page) {
+		return;
+	}
+}
+
+>>>>>>> 6a19ee2582dcc7db50c4e53a98c6735af4d2a770
 // Get Page Title: returns title for page
 function getPageTitle($pages, $page) {
 	$output = "";
