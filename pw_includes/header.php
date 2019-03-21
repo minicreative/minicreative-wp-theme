@@ -36,7 +36,7 @@ include('pw_includes/functions.php');
 	<?php include("pw_site/head.php"); ?>
 
 </head>
-<body class="<?= getBodyClass() ?>">
+<body class="<?= getBodyClass($page) ?>">
 
 	<!-- Site Header -->
 	<?php include("pw_site/site-header.php"); ?>
