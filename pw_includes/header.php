@@ -1,10 +1,10 @@
 <?php
 
-// Base Function Includes
-include('pw_includes/functions.php');
-
 // Site Function Includes
 if (file_exists('pw_site/functions.php')) include('pw_site/functions.php');
+
+// Base Function Includes
+include('pw_includes/functions.php');
 
 ?>
 
@@ -36,7 +36,7 @@ if (file_exists('pw_site/functions.php')) include('pw_site/functions.php');
 	<?php include("pw_site/head.php"); ?>
 
 </head>
-<body>
+<body class="<?= getBodyClass() ?>">
 
 	<!-- Site Header -->
 	<?php include("pw_site/site-header.php"); ?>

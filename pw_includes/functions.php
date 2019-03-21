@@ -11,6 +11,13 @@ function notEmpty($var) {
 	return true;
 }
 
+// Get Body Class: adds class to body tag
+if (!function_exists('getBodyClass')) {
+	function getBodyClass ($page) {
+		return;
+	}
+}
+
 // Get Page Title: returns title for page
 function getPageTitle($pages, $page) {
 	$output = "";
