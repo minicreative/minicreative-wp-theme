@@ -4,11 +4,33 @@
 $homepage = $pages->get('/');
 $settings = $pages->get('/settings/');
 
+// Helper Functions ==============================================
+
 // Not Empty: tests string variable existence
 function notEmpty($var) {
 	if ($var == null) return false;
 	if (strlen($var) < 1) return false;
 	return true;
+}
+
+function getExcerpt($content, $length) {
+	if (!$length) $length = 30;
+	$text = strip_tags($content);
+	$words = explode(" ",$text);
+	if (sizeof($words) > $length) {
+		return implode(" ",array_slice($words,0,$length))."...";
+	} else {
+		return $text;
+	}
+}
+
+// Template Functions ============================================
+
+// Get Body Class: adds class to body tag
+if (!function_exists('getBodyClass')) {
+	function getBodyClass ($page) {
+		return;
+	}
 }
 
 // Get Page Title: returns title for page
@@ -92,32 +114,32 @@ function displaySocialNetworks ($settings) {
 
 // Display Contact Information: prints social networking links
 function displayContactInformation ($settings) {
-	if ($settings->contact->address) {
+	if ($settings->site_contact->address) {
 		echo "<div class='contact-item'>";
 			echo "<div class='icon fas fa-map-marker-alt'></div>";
 			echo "<div class='title'>Address</div>";
-			echo "<div class='value'>{$settings->contact->address1}<br />{$settings->contact->address2}</div>";
+			echo "<div class='value'>{$settings->site_contact->address1}<br />{$settings->site_contact->address2}</div>";
 		echo "</div>";
 	}
-	if ($settings->contact->email) {
+	if ($settings->site_contact->email) {
 		echo "<div class='contact-item'>";
 			echo "<div class='icon fas fa-envelope'></div>";
 			echo "<div class='title'>Email</div>";
-			echo "<div class='value'><a href='mailto:{$settings->contact->email}'>{$settings->contact->email}</a></div>";
+			echo "<div class='value'><a href='mailto:{$settings->site_contact->email}'>{$settings->site_contact->email}</a></div>";
 		echo "</div>";
 	}
-	if ($settings->contact->phone) {
+	if ($settings->site_contact->phone) {
 		echo "<div class='contact-item'>";
 			echo "<div class='icon fas fa-phone'></div>";
 			echo "<div class='title'>Phone</div>";
-			echo "<div class='value'>{$settings->contact->phone}</div>";
+			echo "<div class='value'>{$settings->site_contact->phone}</div>";
 		echo "</div>";
 	}
-	if ($settings->contact->fax) {
+	if ($settings->site_contact->fax) {
 		echo "<div class='contact-item'>";
 			echo "<div class='icon fas fa-fax'></div>";
 			echo "<div class='title'>Fax</div>";
-			echo "<div class='value'>{$settings->contact->fax}</div>";
+			echo "<div class='value'>{$settings->site_contact->fax}</div>";
 		echo "</div>";
 	}
 }
