@@ -24,6 +24,10 @@ function getExcerpt($content, $length) {
 	}
 }
 
+function getBackgroundImageStyle($image) {
+	return "background-image:url(\"".$image."\")";
+}
+
 // Template Functions ============================================
 
 // Get Body Class: adds class to body tag
@@ -44,12 +48,17 @@ function getPageTitle($pages, $page) {
 
 // Get Page SEO Description: returns SEO description for page
 function getPageSeoDescription($pages, $page) {
-	$output = "";
-	if (count($page->_description)) $output .= $page->seo_description;
-	elseif ($page->template !== 'home' and count($page->parent->seo_description)) 
-		$output .= $page->parent->seo_description;
-	else $output .= $pages->get("/settings/")->seo_description;
-	return $output;
+
+	// Use page's SEO description
+	if (count($page->seo_description))
+		return $page->seo_description;
+
+	// Use parent's SEO description
+	if ($page->template !== 'home' and count($page->parent->seo_description)) 
+		return $page->parent->seo_description;
+
+	// Use default SEO description
+	return $pages->get("/settings/")->seo_description;
 }
 
 // Get Header Image URL: returns URL for single header image
