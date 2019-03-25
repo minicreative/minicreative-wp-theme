@@ -82,11 +82,11 @@ body {
 	@include breakpoint(s) {font-size:14px;}
 }
 h1 {
-	font-size:24px;
+	font-size:26px;
 	@include breakpoint(s) {font-size:20px;}
 }
 h2 {
-	font-size:20px;
+	font-size:22px;
 	@include breakpoint(s) {font-size:18px;}
 }
 h3 {
