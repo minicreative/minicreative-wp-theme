@@ -82,11 +82,11 @@ body {
 	@include breakpoint(s) {font-size:14px;}
 }
 h1 {
-	font-size:24px;
+	font-size:26px;
 	@include breakpoint(s) {font-size:20px;}
 }
 h2 {
-	font-size:20px;
+	font-size:22px;
 	@include breakpoint(s) {font-size:18px;}
 }
 h3 {
@@ -368,9 +368,12 @@ body.customize-support {
 				&:first-child {margin-left:0px;}
 				&:last-child {margin-right:0px;}
 
-				// Fix paragraph spacing
-				p:first-of-type {margin-top:0px;}
-				p:last-of-type {margin-bottom:0px;}
+				// Fix element spacing
+				> * {
+					margin:20px 0px;
+					&:first-child {margin-top:0px;}
+					&:last-child {margin-bottom:0px;}
+				}
 
 				// Mobile column styling
 				@include breakpoint(s) {
@@ -386,6 +389,7 @@ body.customize-support {
 		}
 
 		// Quotes
+		blockquote {margin-inline-start:0px; margin-inline-end:0px;}
 		.wp-block-quote {
 			position:relative; box-sizing:border-box; padding:0px 50px; text-align:center; 
 			@include breakpoint (m) {padding:0px 30px;}
@@ -397,6 +401,7 @@ body.customize-support {
 			}
 			cite {font-size:16px; font-style:normal; font-weight:bold;}
 		}
+		.wp-block-column .wp-block-quote {padding:0px 20px;}
 
 		// Seperators
 		.wp-block-separator {
