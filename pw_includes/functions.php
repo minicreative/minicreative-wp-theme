@@ -4,11 +4,33 @@
 $homepage = $pages->get('/');
 $settings = $pages->get('/settings/');
 
+// Helper Functions ==============================================
+
 // Not Empty: tests string variable existence
 function notEmpty($var) {
 	if ($var == null) return false;
 	if (strlen($var) < 1) return false;
 	return true;
+}
+
+function getExcerpt($content, $length) {
+	if (!$length) $length = 30;
+	$text = strip_tags($content);
+	$words = explode(" ",$text);
+	if (sizeof($words) > $length) {
+		return implode(" ",array_slice($words,0,$length))."...";
+	} else {
+		return $text;
+	}
+}
+
+// Template Functions ============================================
+
+// Get Body Class: adds class to body tag
+if (!function_exists('getBodyClass')) {
+	function getBodyClass ($page) {
+		return;
+	}
 }
 
 // Get Page Title: returns title for page
