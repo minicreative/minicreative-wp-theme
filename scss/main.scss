@@ -281,6 +281,9 @@ body.customize-support {
 
 	// Gutenberg Styles (March 2019)
 	&.gutenberg {
+
+		// Paragraph links
+		p a {border-bottom:1px solid #333;}
 		
 		// Spacing parameters
 		.container {
