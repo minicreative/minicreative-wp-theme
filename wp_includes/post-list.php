@@ -28,4 +28,7 @@
 
 	// Close columns
 	echo "</div>";
+
+	// Print pagination
+	echo get_custom_posts_pagination();
 ?>

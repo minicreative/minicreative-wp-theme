@@ -413,6 +413,16 @@ body.customize-support {
 	}
 }
 
+// Pagination
+.pagination {
+	margin-top:$padding; text-align:center;
+	.page-numbers {
+		display:inline-block; padding:4px 10px; border:1px solid #ccc;
+		&.current {background:#ddd;}
+	}
+	@include breakpoint(m) {margin-top:$padding_;};
+}
+
 // ProcessWire Specific Styles ===========================================
 #processwire {
 	position:fixed; right:0px; bottom:20px; z-index:500;

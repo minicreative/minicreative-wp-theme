@@ -528,5 +528,37 @@ function minicreative_register_menus() {
 }
 add_action('init', 'minicreative_register_menus');
 
+// Make custom Paginator
+function get_custom_posts_pagination( $args = array() ) {
+    $navigation = '';
+    if ( $GLOBALS['wp_query']->max_num_pages > 1 ) {
+        $args = wp_parse_args(
+            $args,
+            array(
+                'mid_size'           => 1,
+                'prev_text'          => _x( 'Previous', 'previous set of posts' ),
+                'next_text'          => _x( 'Next', 'next set of posts' ),
+                'screen_reader_text' => __( 'Posts navigation' ),
+            )
+        );
+        if ( isset( $args['type'] ) && 'array' == $args['type'] ) {
+            $args['type'] = 'plain';
+        }
+        $links = paginate_links( $args );
+        if ( $links ) {
+            $navigation = _paginator_navigation_markup( $links, 'pagination', $args['screen_reader_text'] );
+        }
+    }
+	return $navigation;
+}
+function _paginator_navigation_markup( $links, $class = 'posts-navigation', $screen_reader_text = '' ) {
+    $template = '
+    <nav class="pagination" role="navigation">
+        <div class="nav-links">%3$s</div>
+    </nav>';
+    $template = apply_filters( 'navigation_markup_template', $template, $class );
+	return sprintf( $template, sanitize_html_class( $class ), esc_html( $screen_reader_text ), $links );
+}
+
 // Setup Customizer
 include("wp_includes/customizer.php");
