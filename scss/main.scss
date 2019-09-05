@@ -291,7 +291,7 @@ body.customize-support {
 			@include breakpoint(m) {padding:0px $padding_;}
 
 			> * {
-				max-width:700px; margin:$padding auto;
+				max-width:700px; margin:$padding auto; display:block;
 				&:first-child {margin-top:0px;}
 				&:last-child {margin-bottom:0px;}
 

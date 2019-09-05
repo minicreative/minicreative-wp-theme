@@ -272,7 +272,7 @@ if (!function_exists('print_post_categories')) {
 		$categories = wp_get_post_categories(get_the_ID());
 
 		// Print list of categories
-		if (count($categories)) {
+		if (count($categories) > 1 || (count($categories) == 1 && get_category($categories[0])->term_id != 1)) {
 			echo "<div class='post-categories'>Posted in ";
 			$index = 0;
 			foreach($categories as $cat) {
